@@ -1,0 +1,45 @@
+---
+title: "Quarto_operation"
+---
+
+## 添加网站链接
+
+### 直接添加网址
+
+杜俊宏笔记 <https://djhcod.github.io/r-notes/>
+
+``` r
+杜俊宏笔记<https://djhcod.github.io/r-notes/>
+```
+
+### 添加网址并改名
+
+杜俊宏笔记 [R语言和单细胞](https://djhcod.github.io/r-notes/)
+
+``` python
+杜俊宏笔记[R语言和单细胞](https://djhcod.github.io/r-notes/)
+```
+
+## 添加图片
+
+### 单独添加图片
+
+-   \[ \]中间不填
+
+``` python
+![](fig/hss.png)
+```
+
+![](fig/hss.png)
+
+### 添加图片和caption
+
+-   \[ \]中间填标签-派大星
+
+``` python
+![派大星](fig/hss.png)
+```
+
+![派大星](fig/hss.png) 
+
+图片下面有一个caption-派大星

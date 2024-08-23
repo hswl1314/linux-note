@@ -1,0 +1,111 @@
+---
+title: "Single cell upstream analysis"
+---
+
+## 10X genomics Analysis
+
+### Cell Ranger
+
+A set of analysis pipelines that perform sample demultiplexing, barcode processing, single cell 3' and 5' gene counting, V(D)J transcript sequence assembly and annotation, and Feature Barcode analysis from single cell data.
+
+-   1.Download [cellranger download website](https://www.10xgenomics.com/support/software/cell-ranger/downloads)
+
+-   2.Tutorials [Tutorials (cellranger count,cellranger mkref)](https://www.10xgenomics.com/support/software/cell-ranger/latest/tutorials)
+
+## Dnbc4tools Analysis
+
+An open source and flexible pipeline to analyze high-throughput DNBelab C Series<sup>TM</sup> single-cell datasets.
+
+**Hardware/Software requirements**
+
+-   x86-64 compatible processors.
+-   require at least 50GB of RAM and 4 CPU.
+-   centos 7.x 64-bit operating system (Linux kernel 3.10.0, compatible with higher software and hardware configuration).\
+
+### **Conda preparation**
+
+**1. Create dnbc4tools environment**
+
+``` python
+conda create -n dnbc4tools python=3.8 perl
+conda activate dnbc4tools
+```
+
+**2. Install dnbc4tools**
+
+conda install refer to [MGI Website](https://github.com/MGI-tech-bioinformatics/DNBelab_C_Series_HT_scRNA-analysis-software)
+
+``` python
+conda install -c conda-forge -c bioconda htslib=1.18 samtools=1.18
+pip install dnbc4tools==2.1.2
+```
+
+Successfully installed dnbc4tools
+
+### **scRNA**
+
+**1.Build index for reference genome**
+
+-   **Human(GRCh38)**
+
+``` python
+wget http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_32/GRCh38.primary_assembly.genome.fa.gz
+wget http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_32/gencode.v32.primary_assembly.annotation.gtf.gz
+gzip -d GRCh38.primary_assembly.genome.fa.gz
+gzip -d gencode.v32.primary_assembly.annotation.gtf.gz
+
+$dnbc4tools tools mkgtf --ingtf gencode.v32.primary_assembly.annotation.gtf --output genes.filter.gtf --type gene_type
+               
+$dnbc4tools rna mkref --ingtf genes.filter.gtf --fasta GRCh38.primary_assembly.genome.fa --threads 10 --species Homo_sapiens
+```
+
+-   **Mouse(GRCm38)**
+
+``` python
+wget http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M23/GRCm38.primary_assembly.genome.fa.gz
+wget http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M23/gencode.vM23.primary_assembly.annotation.gtf.gz
+gzip -d GRCm38.primary_assembly.genome.fa.gz
+gzip -d gencode.vM23.primary_assembly.annotation.gtf.gz
+
+$dnbc4tools tools mkgtf --ingtf gencode.vM23.primary_assembly.annotation.gtf --output genes.filter.gtf --type gene_type
+                        
+$dnbc4tools rna mkref --ingtf genes.filter.gtf --fasta GRCm38.primary_assembly.genome.fa --threads 10 --species Mus_musculus
+```
+
+**2. Run**
+
+**Running the main workflow**
+
+``` python
+$dnbc4tools rna run \
+    --cDNAfastq1 /test/data/test_cDNA_R1.fastq.gz \
+    --cDNAfastq2 /test/data/test_cDNA_R2.fastq.gz \
+    --oligofastq1 /test/data/test_oligo1_1.fq.gz,/test/data/test_oligo2_1.fq.gz \
+    --oligofastq2 /test/data/test_oligo1_2.fq.gz,/test/data/test_oligo2_2.fq.gz \
+    --genomeDir /database/scRNA/Mus_musculus/mm10  \
+    --name test --threads 10
+```
+
+**Use the multi command to process multiple samples**
+
+``` python
+$dnbc4tools rna multi --list samplelist \
+         --genomeDir /database/scRNA/Mus_musculus/mm10 \
+         --threads 10
+```
+
+sample list
+
+-   **--list**
+
+    -   Generate a three-column list with tab (\t) separators. The first column contains sample names, the second contains cDNA library sequencing data, and the third contains oligo library sequencing data. Multiple fastq files should be separated by commas, and R1 and R2 files should be separated by semicolons.
+
+    -   Here's an example of how the input list should be formatted:
+
+    ```         
+    $sample1 cDNA1_R1.fq.gz;cDNA1_R2.fq.gz oligo1_R1.fq.gz,oligo4_R1.fq.gz;oligo1_R2.fq.gz,oligo4_R2.fq.gz 
+    $sample2 cDNA2_R1.fq.gz;cDNA2_R2.fq.gz oligo2_R1.fq.gz;oligo2_R2.fq.gz 
+    $sample3 cDNA3_R1.fq.gz;cDNA3_R2.fq.gz oligo3_R1.fq.gz;oligo3_R2.fq.gz
+    ```
+
+[More detailed parameter description](https://github.com/MGI-tech-bioinformatics/DNBelab_C_Series_HT_scRNA-analysis-software/blob/version2.0/doc/scRNA_para.md)

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; 上游矩阵到clean_data – Hss's Notebook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./dnbc4tools.html" rel="next">
+<link href="./rna-analysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./r-note.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">上游矩阵到clean_data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Hss’s Notebook</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">转录组测序分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ascp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rna-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./r-note.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">上游矩阵到clean_data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnbc4tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Single cell upstream analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Oxidized_Phospholipidomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Oxidized Phospholipidomics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quarto_operation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quarto_operation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#处理当前文件夹读入文件数据框使用biomart包" id="toc-处理当前文件夹读入文件数据框使用biomart包" class="nav-link active" data-scroll-target="#处理当前文件夹读入文件数据框使用biomart包"><span class="header-section-number">4.1</span> 处理当前文件夹，读入文件（数据框），使用<strong>biomaRt</strong>包</a></li>
+  <li><a href="#使用网页数据库ensembl" id="toc-使用网页数据库ensembl" class="nav-link" data-scroll-target="#使用网页数据库ensembl"><span class="header-section-number">4.2</span> 使用网页数据库<strong>ensembl</strong></a></li>
+  <li><a href="#进行左连接" id="toc-进行左连接" class="nav-link" data-scroll-target="#进行左连接"><span class="header-section-number">4.3</span> 进行左连接</a></li>
+  <li><a href="#将gene-symbol和gene-id插入到第一列后面" id="toc-将gene-symbol和gene-id插入到第一列后面" class="nav-link" data-scroll-target="#将gene-symbol和gene-id插入到第一列后面"><span class="header-section-number">4.4</span> 将<strong>Gene</strong> <strong>Symbol</strong>和<strong>Gene</strong> <strong>ID</strong>插入到第一列后面</a></li>
+  <li><a href="#去重复" id="toc-去重复" class="nav-link" data-scroll-target="#去重复"><span class="header-section-number">4.5</span> 去重复</a></li>
+  <li><a href="#使用readr包读取矩阵数据" id="toc-使用readr包读取矩阵数据" class="nav-link" data-scroll-target="#使用readr包读取矩阵数据"><span class="header-section-number">4.6</span> 使用<strong>readr</strong>包，读取矩阵数据</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">上游矩阵到clean_data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="处理当前文件夹读入文件数据框使用biomart包" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="处理当前文件夹读入文件数据框使用biomart包"><span class="header-section-number">4.1</span> 处理当前文件夹，读入文件（数据框），使用<strong>biomaRt</strong>包</h2>
+<blockquote class="blockquote">
+<p>过滤50%样品中表达小于10的基因 $ 假设第一列的名称是Geneid，使用<strong>sub</strong>函数去除第一列中数据的小数点和随后的数字</p>
+</blockquote>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#第一步----------------------------------------------------------------------------------</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"E:/tu/"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(biomaRt)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>counts_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"hss_counts.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>minimum_samples <span class="ot">&lt;-</span> <span class="fu">ceiling</span>(<span class="fu">ncol</span>(counts_data) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>filtered_counts <span class="ot">&lt;-</span> counts_data[<span class="fu">rowSums</span>(counts_data[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">&gt;=</span> <span class="dv">10</span>) <span class="sc">&gt;=</span> minimum_samples, ]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>filtered_counts<span class="sc">$</span>Geneid <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">..*"</span>, <span class="st">""</span>, filtered_counts<span class="sc">$</span>Geneid)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(filtered_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<caption>A data.frame: 6 × 12</caption>
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 22%">
+<col style="width: 31%">
+<col style="width: 31%">
+<col style="width: 9%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Geneid</th>
+<th>Chr</th>
+<th>Start</th>
+<th>End</th>
+<th>Strand</th>
+<th>Length</th>
+<th>X101.bam</th>
+<th>X102.bam</th>
+<th>X103.bam</th>
+<th>X104.bam</th>
+<th>X105.bam</th>
+<th>X106.bam</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>ENSG00000227232</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>14404;15005;15796;16607;16858;17233;17606;17915;18268;24738;29534</td>
+<td>14501;15038;15947;16765;17055;17368;17742;18061;18366;24891;29570</td>
+<td>-;-;-;-;-;-;-;-;-;-;-</td>
+<td>1351</td>
+<td>62</td>
+<td>85</td>
+<td>45</td>
+<td>61</td>
+<td>120</td>
+<td>111</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td>ENSG00000279457</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>185217;185491;186317;187129;187376;187755;188130;188439;188791;195263</td>
+<td>185350;185559;186469;187287;187577;187890;188266;188584;188902;195411</td>
+<td>-;-;-;-;-;-;-;-;-;-</td>
+<td>1397</td>
+<td>174</td>
+<td>229</td>
+<td>132</td>
+<td>170</td>
+<td>196</td>
+<td>164</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td>ENSG00000228463</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>257864;257913;258144;258524;258568;261550;263015;264604;267303;267303;268667;268667;268667;289266;297345;356685;358049;359345</td>
+<td>259025;259025;259025;259025;259024;261634;268204;264733;268204;268204;268816;268816;268816;289370;297502;357586;358183;359681</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>8224</td>
+<td>10</td>
+<td>11</td>
+<td>9</td>
+<td>10</td>
+<td>14</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>28</td>
+<td>ENSG00000290385</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>365389;365395;365615;366019;368251;373144;373182;379769;379769;476364;484832;485040;485040;485066;489361;494382;494464;494475;494611;494771;494992;494992;494992;494992;494992;495277;495277;496264;497109;497109;497109;497134;497205;497210;497240;497245;497275;498047;498073;498073;498073;498281;498399;498399;498399;498399;498399;498399;498399;498399;498684;498684;498684;498684;498984;501556;501556;501556;501556;501556;501588;501604;502187;502465;502465;502465;502465;502465;502862;504470;504865;504980;504980;514359;514359;514359;514359;517156;517185;517185;522859</td>
+<td>365692;365692;365692;366151;368450;373323;373323;379870;379972;476945;485208;485208;485208;485208;489553;494586;494898;494898;494898;494898;495049;495049;495049;495049;495049;495368;495476;496605;497299;497299;497259;497299;497228;497299;497299;497299;497299;498305;498305;498305;498305;498305;498456;498456;498976;498456;498456;498456;498456;498456;499175;499002;499175;498976;499369;501607;501620;501620;501620;501620;501620;501620;502243;502661;502598;502873;502598;502508;502955;504933;505103;505103;505103;514423;514413;514423;514423;517225;517266;517252;522928</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>6204</td>
+<td>10</td>
+<td>10</td>
+<td>6</td>
+<td>9</td>
+<td>17</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>35</td>
+<td>ENSG00000230021</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>586071;586278;586821;586821;586945;588117;594191;594198;594308;594308;594308;594458;594629;597299;601398;601398;601398;601398;601398;601398;601436;607955;607955;607955;607955;607955;607955;612741;612741;627377;627961;628919;628919;628919;631131;631131;633044;698927;698927;701936;703685;703685;711711;711711;711765;711867;720024;720032;720032;720032;720032;720032;720053;724358;732017;732017;732981;827670;827670</td>
+<td>586358;586358;586955;586955;586955;588453;594756;594756;594756;594756;594756;594756;594756;598551;601577;601577;601577;601577;601577;601577;601577;608056;608056;608056;608056;608056;608056;612864;612813;627823;628223;629006;629006;629006;631150;631204;633129;698959;698959;702340;703789;703789;711922;711922;711922;711922;720206;720200;720150;720200;720200;720194;720200;724564;732212;732207;733064;827769;827796</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>5495</td>
+<td>5</td>
+<td>13</td>
+<td>5</td>
+<td>10</td>
+<td>15</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>37</td>
+<td>ENSG00000225972</td>
+<td>chr1</td>
+<td>629062</td>
+<td>629433</td>
+<td>+</td>
+<td>372</td>
+<td>9</td>
+<td>15</td>
+<td>5</td>
+<td>15</td>
+<td>15</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="使用网页数据库ensembl" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="使用网页数据库ensembl"><span class="header-section-number">4.2</span> 使用网页数据库<strong>ensembl</strong></h2>
+<blockquote class="blockquote">
+<p>进行种属比对提取ENSG IDs(Gene Symbols和Entrez Gene IDs)</p>
+</blockquote>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ensembl <span class="ot">&lt;-</span> <span class="fu">useEnsembl</span>(<span class="at">biomart =</span> <span class="st">"genes"</span>, <span class="at">dataset =</span> <span class="st">"hsapiens_gene_ensembl"</span>)<span class="co">#鼠mmusculus,人hsapiens</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ensg_ids <span class="ot">&lt;-</span> filtered_counts[, <span class="dv">1</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>annotations <span class="ot">&lt;-</span> <span class="fu">getBM</span>(<span class="at">attributes =</span> <span class="fu">c</span>(<span class="st">'ensembl_gene_id'</span>, <span class="st">'hgnc_symbol'</span>, <span class="st">'entrezgene_id'</span>),<span class="co">#鼠mgi_symbol，人hgnc_symbol</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">filters =</span> <span class="st">'ensembl_gene_id'</span>, <span class="at">values =</span> ensg_ids, <span class="at">mart =</span> ensembl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="进行左连接" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="进行左连接"><span class="header-section-number">4.3</span> 进行左连接</h2>
+<blockquote class="blockquote">
+<p>因为有时候annotations的顺序可能和原始的ensg_ids不一致，所以我们需要以ensg_ids为基础进行左连接</p>
+</blockquote>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>counts_data_annotated <span class="ot">&lt;-</span> <span class="fu">merge</span>(filtered_counts, annotations, <span class="at">by.x =</span> <span class="st">'Geneid'</span>, <span class="at">by.y =</span> <span class="st">'ensembl_gene_id'</span>, <span class="at">all.x =</span> <span class="cn">TRUE</span>, <span class="at">sort =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="将gene-symbol和gene-id插入到第一列后面" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="将gene-symbol和gene-id插入到第一列后面"><span class="header-section-number">4.4</span> 将<strong>Gene</strong> <strong>Symbol</strong>和<strong>Gene</strong> <strong>ID</strong>插入到第一列后面</h2>
+<blockquote class="blockquote">
+<p>为新插入的列重命名</p>
+</blockquote>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_annotated <span class="ot">&lt;-</span> counts_data_annotated[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">ncol</span>(counts_data_annotated)<span class="sc">-</span><span class="dv">1</span>, <span class="fu">ncol</span>(counts_data_annotated), <span class="dv">2</span><span class="sc">:</span>(<span class="fu">ncol</span>(counts_data_annotated)<span class="sc">-</span><span class="dv">2</span>))]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_annotated)[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="st">"GeneSymbol"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_annotated)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="st">"GeneID"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_annotated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<caption>A data.frame: 6 × 14</caption>
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 22%">
+<col style="width: 31%">
+<col style="width: 31%">
+<col style="width: 8%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Geneid</th>
+<th>GeneSymbol</th>
+<th>GeneID</th>
+<th>Chr</th>
+<th>Start</th>
+<th>End</th>
+<th>Strand</th>
+<th>Length</th>
+<th>X101.bam</th>
+<th>X102.bam</th>
+<th>X103.bam</th>
+<th>X104.bam</th>
+<th>X105.bam</th>
+<th>X106.bam</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;chr&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>ENSG00000227232</td>
+<td>WASH7P</td>
+<td>NA</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>14404;15005;15796;16607;16858;17233;17606;17915;18268;24738;29534</td>
+<td>14501;15038;15947;16765;17055;17368;17742;18061;18366;24891;29570</td>
+<td>-;-;-;-;-;-;-;-;-;-;-</td>
+<td>1351</td>
+<td>62</td>
+<td>85</td>
+<td>45</td>
+<td>61</td>
+<td>120</td>
+<td>111</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>ENSG00000279457</td>
+<td>WASH9P</td>
+<td>NA</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>185217;185491;186317;187129;187376;187755;188130;188439;188791;195263</td>
+<td>185350;185559;186469;187287;187577;187890;188266;188584;188902;195411</td>
+<td>-;-;-;-;-;-;-;-;-;-</td>
+<td>1397</td>
+<td>174</td>
+<td>229</td>
+<td>132</td>
+<td>170</td>
+<td>196</td>
+<td>164</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>ENSG00000228463</td>
+<td></td>
+<td>NA</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>257864;257913;258144;258524;258568;261550;263015;264604;267303;267303;268667;268667;268667;289266;297345;356685;358049;359345</td>
+<td>259025;259025;259025;259025;259024;261634;268204;264733;268204;268204;268816;268816;268816;289370;297502;357586;358183;359681</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>8224</td>
+<td>10</td>
+<td>11</td>
+<td>9</td>
+<td>10</td>
+<td>14</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>ENSG00000290385</td>
+<td></td>
+<td>NA</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>365389;365395;365615;366019;368251;373144;373182;379769;379769;476364;484832;485040;485040;485066;489361;494382;494464;494475;494611;494771;494992;494992;494992;494992;494992;495277;495277;496264;497109;497109;497109;497134;497205;497210;497240;497245;497275;498047;498073;498073;498073;498281;498399;498399;498399;498399;498399;498399;498399;498399;498684;498684;498684;498684;498984;501556;501556;501556;501556;501556;501588;501604;502187;502465;502465;502465;502465;502465;502862;504470;504865;504980;504980;514359;514359;514359;514359;517156;517185;517185;522859</td>
+<td>365692;365692;365692;366151;368450;373323;373323;379870;379972;476945;485208;485208;485208;485208;489553;494586;494898;494898;494898;494898;495049;495049;495049;495049;495049;495368;495476;496605;497299;497299;497259;497299;497228;497299;497299;497299;497299;498305;498305;498305;498305;498305;498456;498456;498976;498456;498456;498456;498456;498456;499175;499002;499175;498976;499369;501607;501620;501620;501620;501620;501620;501620;502243;502661;502598;502873;502598;502508;502955;504933;505103;505103;505103;514423;514413;514423;514423;517225;517266;517252;522928</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>6204</td>
+<td>10</td>
+<td>10</td>
+<td>6</td>
+<td>9</td>
+<td>17</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>ENSG00000230021</td>
+<td></td>
+<td>NA</td>
+<td>chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1;chr1</td>
+<td>586071;586278;586821;586821;586945;588117;594191;594198;594308;594308;594308;594458;594629;597299;601398;601398;601398;601398;601398;601398;601436;607955;607955;607955;607955;607955;607955;612741;612741;627377;627961;628919;628919;628919;631131;631131;633044;698927;698927;701936;703685;703685;711711;711711;711765;711867;720024;720032;720032;720032;720032;720032;720053;724358;732017;732017;732981;827670;827670</td>
+<td>586358;586358;586955;586955;586955;588453;594756;594756;594756;594756;594756;594756;594756;598551;601577;601577;601577;601577;601577;601577;601577;608056;608056;608056;608056;608056;608056;612864;612813;627823;628223;629006;629006;629006;631150;631204;633129;698959;698959;702340;703789;703789;711922;711922;711922;711922;720206;720200;720150;720200;720200;720194;720200;724564;732212;732207;733064;827769;827796</td>
+<td>-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-;-</td>
+<td>5495</td>
+<td>5</td>
+<td>13</td>
+<td>5</td>
+<td>10</td>
+<td>15</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>ENSG00000225972</td>
+<td>MTND1P23</td>
+<td>NA</td>
+<td>chr1</td>
+<td>629062</td>
+<td>629433</td>
+<td>+</td>
+<td>372</td>
+<td>9</td>
+<td>15</td>
+<td>5</td>
+<td>15</td>
+<td>15</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="去重复" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="去重复"><span class="header-section-number">4.5</span> 去重复</h2>
+<blockquote class="blockquote">
+<p>列数和矩阵数据要对应</p>
+</blockquote>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>checklwl <span class="ot">&lt;-</span> data_annotated </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_unique <span class="ot">&lt;-</span> checklwl[<span class="sc">!</span><span class="fu">duplicated</span>(checklwl[[<span class="dv">1</span>]]), ]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_unique)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>matrix <span class="ot">&lt;-</span>data_unique[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">9</span><span class="sc">:</span><span class="dv">14</span>)]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#sample_info &lt;- data_unique[,1:3]</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#chr_info &lt;- data_unique[,c(1,4:8)]</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(matrix, <span class="st">"matrix.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data_unique, <span class="st">"all.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(matrix)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(sample_info, "sample_info.csv", row.names = FALSE)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(chr_info, "chr_info.csv", row.names = FALSE)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl>
+<dt>31b8e172-b470-440e-83d8-e6b185028602:dAB5AHAAZQA6AE8AQQBCAGwAQQBHAFkAQQBOAFEAQgBoAEEARABjAEEATgB3AEEAeQBBAEMAMABBAFoAQQBCAGsAQQBEAFkAQQBNAHcAQQB0AEEARABRAEEATgBnAEEAeQBBAEQASQBBAEwAUQBBADQAQQBEAFEAQQBZAGcAQgBtAEEAQwAwAEEAWQBRAEIAbQBBAEQARQBBAE8AUQBBADUAQQBEAFUAQQBZAFEAQQB4AEEARwBJAEEATQBnAEIAaQBBAEQAawBBAAoAcABvAHMAaQB0AGkAbwBuADoATQBRAEEAMABBAEQAYwBBAE0AUQBBADAAQQBBAD0APQAKAHAAcgBlAGYAaQB4ADoACgBzAG8AdQByAGMAZQA6AFAAQQBCADAAQQBHAEUAQQBZAGcAQgBzAEEARwBVAEEAUABnAEEASwBBAEQAdwBBAFkAdwBCAGgAQQBIAEEAQQBkAEEAQgBwAEEARwA4AEEAYgBnAEEAKwBBAEUARQBBAEkAQQBCAGsAQQBHAEUAQQBkAEEAQgBoAEEAQwA0AEEAWgBnAEIAeQBBAEcARQBBAGIAUQBCAGwAQQBEAG8AQQBJAEEAQQAyAEEAQwBBAEEAMQB3AEEAZwBBAEQARQBBAE4AQQBBADgAQQBDADgAQQBZAHcAQgBoAEEASABBAEEAZABBAEIAcABBAEcAOABBAGIAZwBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAWgBRAEIAaABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgB5AEEAQwBBAEEAWQB3AEIAcwBBAEcARQBBAGMAdwBCAHoAQQBEADAAQQBJAGcAQgBvAEEARwBVAEEAWQBRAEIAawBBAEcAVQBBAGMAZwBBAGkAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYQBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAGEAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAEgAQQBHAFUAQQBiAGcAQgBsAEEARwBrAEEAWgBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBnAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAG8AQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAUgB3AEIAbABBAEcANABBAFoAUQBCAFQAQQBIAGsAQQBiAFEAQgBpAEEARwA4AEEAYgBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBnAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAG8AQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAUgB3AEIAbABBAEcANABBAFoAUQBCAEoAQQBFAFEAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAG8AQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYQBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBFAE0AQQBhAEEAQgB5AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBhAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAZwBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBUAEEASABRAEEAWQBRAEIAeQBBAEgAUQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAbwBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBhAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEUAVQBBAGIAZwBCAGsAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAGEAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAFQAQQBIAFEAQQBjAGcAQgBoAEEARwA0AEEAWgBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBnAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAG8AQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAVABBAEIAbABBAEcANABBAFoAdwBCADAAQQBHAGcAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAG8AQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYQBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBGAGcAQQBNAFEAQQB3AEEARABFAEEATABnAEIAaQBBAEcARQBBAGIAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAZwBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBvAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFcAQQBBAHgAQQBEAEEAQQBNAGcAQQB1AEEARwBJAEEAWQBRAEIAdABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAYQBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAGcAQQBQAGcAQQA4AEEASABBAEEAUABnAEIAWQBBAEQARQBBAE0AQQBBAHoAQQBDADQAQQBZAGcAQgBoAEEARwAwAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBvAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAGEAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARgBnAEEATQBRAEEAdwBBAEQAUQBBAEwAZwBCAGkAQQBHAEUAQQBiAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAGcAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAbwBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBXAEEAQQB4AEEARABBAEEATgBRAEEAdQBBAEcASQBBAFkAUQBCAHQAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAGEAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAFkAQQBEAEUAQQBNAEEAQQAyAEEAQwA0AEEAWQBnAEIAaABBAEcAMABBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAbwBBAEQANABBAEMAZwBBADgAQQBDADgAQQBkAEEAQgB5AEEARAA0AEEAQwBnAEEAOABBAEMAOABBAGQAQQBCAG8AQQBHAFUAQQBZAFEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFkAZwBCAHYAQQBHAFEAQQBlAFEAQQArAEEAQQBvAEEAUABBAEIAMABBAEgASQBBAEkAQQBCAGoAQQBHAHcAQQBZAFEAQgB6AEEASABNAEEAUABRAEEAaQBBAEcAOABBAFoAQQBCAGsAQQBDAEkAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBDAFkAQQBiAEEAQgAwAEEARABzAEEAWQB3AEIAbwBBAEgASQBBAEoAZwBCAG4AQQBIAFEAQQBPAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBKAGcAQgBzAEEASABRAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAG0AQQBHAGMAQQBkAEEAQQA3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQBtAEEARwB3AEEAZABBAEEANwBBAEcAawBBAGIAZwBCADAAQQBDAFkAQQBaAHcAQgAwAEEARABzAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEAQwBZAEEAYgBBAEIAMABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBKAGcAQgBuAEEASABRAEEATwB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEASgBnAEIAcwBBAEgAUQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQBtAEEARwBjAEEAZABBAEEANwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAbQBBAEcAdwBBAGQAQQBBADcAQQBHAE0AQQBhAEEAQgB5AEEAQwBZAEEAWgB3AEIAMABBAEQAcwBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEMAWQBBAGIAQQBCADAAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEASgBnAEIAbgBBAEgAUQBBAE8AdwBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAEoAZwBCAHMAQQBIAFEAQQBPAHcAQgBwAEEARwA0AEEAZABBAEEAbQBBAEcAYwBBAGQAQQBBADcAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAG0AQQBHAHcAQQBkAEEAQQA3AEEARwBrAEEAYgBnAEIAMABBAEMAWQBBAFoAdwBCADAAQQBEAHMAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBDAFkAQQBiAEEAQgAwAEEARABzAEEAYQBRAEIAdQBBAEgAUQBBAEoAZwBCAG4AQQBIAFEAQQBPAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBKAGcAQgBzAEEASABRAEEATwB3AEIAcABBAEcANABBAGQAQQBBAG0AQQBHAGMAQQBkAEEAQQA3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQBtAEEARwB3AEEAZABBAEEANwBBAEcAawBBAGIAZwBCADAAQQBDAFkAQQBaAHcAQgAwAEEARABzAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEAQwBZAEEAYgBBAEIAMABBAEQAcwBBAGEAUQBCAHUAQQBIAFEAQQBKAGcAQgBuAEEASABRAEEATwB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEASgBnAEIAcwBBAEgAUQBBAE8AdwBCAHAAQQBHADQAQQBkAEEAQQBtAEEARwBjAEEAZABBAEEANwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBjAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEgASQBBAEkAQQBCAGoAQQBHAHcAQQBZAFEAQgB6AEEASABNAEEAUABRAEEAaQBBAEcAVQBBAGQAZwBCAGwAQQBHADQAQQBJAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBGAEEARQA0AEEAVQB3AEIASABBAEQAQQBBAE0AQQBBAHcAQQBEAEEAQQBNAEEAQQB5AEEARABJAEEATgB3AEEAeQBBAEQATQBBAE0AZwBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFYAdwBCAEIAQQBGAE0AQQBTAEEAQQAzAEEARgBBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQA0AEEAUQBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgBBAEEAMABBAEQAQQBBAE4AQQBBADcAQQBEAEUAQQBOAFEAQQB3AEEARABBAEEATgBRAEEANwBBAEQARQBBAE4AUQBBADMAQQBEAGsAQQBOAGcAQQA3AEEARABFAEEATgBnAEEAMgBBAEQAQQBBAE4AdwBBADcAQQBEAEUAQQBOAGcAQQA0AEEARABVAEEATwBBAEEANwBBAEQARQBBAE4AdwBBAHkAQQBEAE0AQQBNAHcAQQA3AEEARABFAEEATgB3AEEAMgBBAEQAQQBBAE4AZwBBADcAQQBEAEUAQQBOAHcAQQA1AEEARABFAEEATgBRAEEANwBBAEQARQBBAE8AQQBBAHkAQQBEAFkAQQBPAEEAQQA3AEEARABJAEEATgBBAEEAMwBBAEQATQBBAE8AQQBBADcAQQBEAEkAQQBPAFEAQQAxAEEARABNAEEATgBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAMABBAEQAVQBBAE0AQQBBAHgAQQBEAHMAQQBNAFEAQQAxAEEARABBAEEATQB3AEEANABBAEQAcwBBAE0AUQBBADEAQQBEAGsAQQBOAEEAQQAzAEEARABzAEEATQBRAEEAMgBBAEQAYwBBAE4AZwBBADEAQQBEAHMAQQBNAFEAQQAzAEEARABBAEEATgBRAEEAMQBBAEQAcwBBAE0AUQBBADMAQQBEAE0AQQBOAGcAQQA0AEEARABzAEEATQBRAEEAMwBBAEQAYwBBAE4AQQBBAHkAQQBEAHMAQQBNAFEAQQA0AEEARABBAEEATgBnAEEAeABBAEQAcwBBAE0AUQBBADQAQQBEAE0AQQBOAGcAQQAyAEEARABzAEEATQBnAEEAMABBAEQAZwBBAE8AUQBBAHgAQQBEAHMAQQBNAGcAQQA1AEEARABVAEEATgB3AEEAdwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE0AUQBBAHoAQQBEAFUAQQBNAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBOAGcAQQB5AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQA0AEEARABVAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABRAEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATgBnAEEAeABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQASQBBAE0AQQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE0AUQBBAHgAQQBEAEUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEAQwA4AEEAZABBAEIAeQBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBjAGcAQQBnAEEARwBNAEEAYgBBAEIAaABBAEgATQBBAGMAdwBBADkAQQBDAEkAQQBiAHcAQgBrAEEARwBRAEEASQBnAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeQBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEIARgBBAEUANABBAFUAdwBCAEgAQQBEAEEAQQBNAEEAQQB3AEEARABBAEEATQBBAEEAeQBBAEQAYwBBAE8AUQBBADAAQQBEAFUAQQBOAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBWAHcAQgBCAEEARgBNAEEAUwBBAEEANQBBAEYAQQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEUANABBAFEAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQA0AEEARABVAEEATQBnAEEAeABBAEQAYwBBAE8AdwBBAHgAQQBEAGcAQQBOAFEAQQAwAEEARABrAEEATQBRAEEANwBBAEQARQBBAE8AQQBBADIAQQBEAE0AQQBNAFEAQQAzAEEARABzAEEATQBRAEEANABBAEQAYwBBAE0AUQBBAHkAQQBEAGsAQQBPAHcAQQB4AEEARABnAEEATgB3AEEAegBBAEQAYwBBAE4AZwBBADcAQQBEAEUAQQBPAEEAQQAzAEEARABjAEEATgBRAEEAMQBBAEQAcwBBAE0AUQBBADQAQQBEAGcAQQBNAFEAQQB6AEEARABBAEEATwB3AEEAeABBAEQAZwBBAE8AQQBBADAAQQBEAE0AQQBPAFEAQQA3AEEARABFAEEATwBBAEEANABBAEQAYwBBAE8AUQBBAHgAQQBEAHMAQQBNAFEAQQA1AEEARABVAEEATQBnAEEAMgBBAEQATQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEQARQBBAE8AQQBBADEAQQBEAE0AQQBOAFEAQQB3AEEARABzAEEATQBRAEEANABBAEQAVQBBAE4AUQBBADEAQQBEAGsAQQBPAHcAQQB4AEEARABnAEEATgBnAEEAMABBAEQAWQBBAE8AUQBBADcAQQBEAEUAQQBPAEEAQQAzAEEARABJAEEATwBBAEEAMwBBAEQAcwBBAE0AUQBBADQAQQBEAGMAQQBOAFEAQQAzAEEARABjAEEATwB3AEEAeABBAEQAZwBBAE4AdwBBADQAQQBEAGsAQQBNAEEAQQA3AEEARABFAEEATwBBAEEANABBAEQASQBBAE4AZwBBADIAQQBEAHMAQQBNAFEAQQA0AEEARABnAEEATgBRAEEANABBAEQAUQBBAE8AdwBBAHgAQQBEAGcAQQBPAEEAQQA1AEEARABBAEEATQBnAEEANwBBAEQARQBBAE8AUQBBADEAQQBEAFEAQQBNAFEAQQB4AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABNAEEATwBRAEEAMwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQAYwBBAE4AQQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE0AZwBBAHkAQQBEAGsAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAEUAQQBNAHcAQQB5AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABjAEEATQBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEANQBBAEQAWQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEQARQBBAE4AZwBBADAAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQQB2AEEASABRAEEAYwBnAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBIAEkAQQBJAEEAQgBqAEEARwB3AEEAWQBRAEIAegBBAEgATQBBAFAAUQBBAGkAQQBHAFUAQQBkAGcAQgBsAEEARwA0AEEASQBnAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAegBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEIARgBBAEUANABBAFUAdwBCAEgAQQBEAEEAQQBNAEEAQQB3AEEARABBAEEATQBBAEEAeQBBAEQASQBBAE8AQQBBADAAQQBEAFkAQQBNAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBPAEEARQBFAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAGcAQQAxAEEARABjAEEATwBBAEEAMgBBAEQAUQBBAE8AdwBBAHkAQQBEAFUAQQBOAHcAQQA1AEEARABFAEEATQB3AEEANwBBAEQASQBBAE4AUQBBADQAQQBEAEUAQQBOAEEAQQAwAEEARABzAEEATQBnAEEAMQBBAEQAZwBBAE4AUQBBAHkAQQBEAFEAQQBPAHcAQQB5AEEARABVAEEATwBBAEEAMQBBAEQAWQBBAE8AQQBBADcAQQBEAEkAQQBOAGcAQQB4AEEARABVAEEATgBRAEEAdwBBAEQAcwBBAE0AZwBBADIAQQBEAE0AQQBNAEEAQQB4AEEARABVAEEATwB3AEEAeQBBAEQAWQBBAE4AQQBBADIAQQBEAEEAQQBOAEEAQQA3AEEARABJAEEATgBnAEEAMwBBAEQATQBBAE0AQQBBAHoAQQBEAHMAQQBNAGcAQQAyAEEARABjAEEATQB3AEEAdwBBAEQATQBBAE8AdwBBAHkAQQBEAFkAQQBPAEEAQQAyAEEARABZAEEATgB3AEEANwBBAEQASQBBAE4AZwBBADQAQQBEAFkAQQBOAGcAQQAzAEEARABzAEEATQBnAEEAMgBBAEQAZwBBAE4AZwBBADIAQQBEAGMAQQBPAHcAQQB5AEEARABnAEEATwBRAEEAeQBBAEQAWQBBAE4AZwBBADcAQQBEAEkAQQBPAFEAQQAzAEEARABNAEEATgBBAEEAMQBBAEQAcwBBAE0AdwBBADEAQQBEAFkAQQBOAGcAQQA0AEEARABVAEEATwB3AEEAegBBAEQAVQBBAE8AQQBBAHcAQQBEAFEAQQBPAFEAQQA3AEEARABNAEEATgBRAEEANQBBAEQATQBBAE4AQQBBADEAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHkAQQBEAFUAQQBPAFEAQQB3AEEARABJAEEATgBRAEEANwBBAEQASQBBAE4AUQBBADUAQQBEAEEAQQBNAGcAQQAxAEEARABzAEEATQBnAEEAMQBBAEQAawBBAE0AQQBBAHkAQQBEAFUAQQBPAHcAQQB5AEEARABVAEEATwBRAEEAdwBBAEQASQBBAE4AUQBBADcAQQBEAEkAQQBOAFEAQQA1AEEARABBAEEATQBnAEEAMABBAEQAcwBBAE0AZwBBADIAQQBEAEUAQQBOAGcAQQB6AEEARABRAEEATwB3AEEAeQBBAEQAWQBBAE8AQQBBAHkAQQBEAEEAQQBOAEEAQQA3AEEARABJAEEATgBnAEEAMABBAEQAYwBBAE0AdwBBAHoAQQBEAHMAQQBNAGcAQQAyAEEARABnAEEATQBnAEEAdwBBAEQAUQBBAE8AdwBBAHkAQQBEAFkAQQBPAEEAQQB5AEEARABBAEEATgBBAEEANwBBAEQASQBBAE4AZwBBADQAQQBEAGcAQQBNAFEAQQAyAEEARABzAEEATQBnAEEAMgBBAEQAZwBBAE8AQQBBAHgAQQBEAFkAQQBPAHcAQQB5AEEARABZAEEATwBBAEEANABBAEQARQBBAE4AZwBBADcAQQBEAEkAQQBPAEEAQQA1AEEARABNAEEATgB3AEEAdwBBAEQAcwBBAE0AZwBBADUAQQBEAGMAQQBOAFEAQQB3AEEARABJAEEATwB3AEEAegBBAEQAVQBBAE4AdwBBADEAQQBEAGcAQQBOAGcAQQA3AEEARABNAEEATgBRAEEANABBAEQARQBBAE8AQQBBAHoAQQBEAHMAQQBNAHcAQQAxAEEARABrAEEATgBnAEEANABBAEQARQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATwBBAEEAeQBBAEQASQBBAE4AQQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE0AUQBBAHcAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHgAQQBEAEUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAGsAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAEUAQQBNAEEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQAwAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABFAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEMAOABBAGQAQQBCAHkAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYwBnAEEAZwBBAEcATQBBAGIAQQBCAGgAQQBIAE0AQQBjAHcAQQA5AEEAQwBJAEEAYgB3AEIAawBBAEcAUQBBAEkAZwBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBADAAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAEYAQQBFADQAQQBVAHcAQgBIAEEARABBAEEATQBBAEEAdwBBAEQAQQBBAE0AQQBBAHkAQQBEAGsAQQBNAEEAQQB6AEEARABnAEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEIATwBBAEUARQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQB3AEEAMgBBAEQAVQBBAE0AdwBBADQAQQBEAGsAQQBPAHcAQQB6AEEARABZAEEATgBRAEEAegBBAEQAawBBAE4AUQBBADcAQQBEAE0AQQBOAGcAQQAxAEEARABZAEEATQBRAEEAMQBBAEQAcwBBAE0AdwBBADIAQQBEAFkAQQBNAEEAQQB4AEEARABrAEEATwB3AEEAegBBAEQAWQBBAE8AQQBBAHkAQQBEAFUAQQBNAFEAQQA3AEEARABNAEEATgB3AEEAegBBAEQARQBBAE4AQQBBADAAQQBEAHMAQQBNAHcAQQAzAEEARABNAEEATQBRAEEANABBAEQASQBBAE8AdwBBAHoAQQBEAGMAQQBPAFEAQQAzAEEARABZAEEATwBRAEEANwBBAEQATQBBAE4AdwBBADUAQQBEAGMAQQBOAGcAQQA1AEEARABzAEEATgBBAEEAMwBBAEQAWQBBAE0AdwBBADIAQQBEAFEAQQBPAHcAQQAwAEEARABnAEEATgBBAEEANABBAEQATQBBAE0AZwBBADcAQQBEAFEAQQBPAEEAQQAxAEEARABBAEEATgBBAEEAdwBBAEQAcwBBAE4AQQBBADQAQQBEAFUAQQBNAEEAQQAwAEEARABBAEEATwB3AEEAMABBAEQAZwBBAE4AUQBBAHcAQQBEAFkAQQBOAGcAQQA3AEEARABRAEEATwBBAEEANQBBAEQATQBBAE4AZwBBAHgAQQBEAHMAQQBOAEEAQQA1AEEARABRAEEATQB3AEEANABBAEQASQBBAE8AdwBBADAAQQBEAGsAQQBOAEEAQQAwAEEARABZAEEATgBBAEEANwBBAEQAUQBBAE8AUQBBADAAQQBEAFEAQQBOAHcAQQAxAEEARABzAEEATgBBAEEANQBBAEQAUQBBAE4AZwBBAHgAQQBEAEUAQQBPAHcAQQAwAEEARABrAEEATgBBAEEAMwBBAEQAYwBBAE0AUQBBADcAQQBEAFEAQQBPAFEAQQAwAEEARABrAEEATwBRAEEAeQBBAEQAcwBBAE4AQQBBADUAQQBEAFEAQQBPAFEAQQA1AEEARABJAEEATwB3AEEAMABBAEQAawBBAE4AQQBBADUAQQBEAGsAQQBNAGcAQQA3AEEARABRAEEATwBRAEEAMABBAEQAawBBAE8AUQBBAHkAQQBEAHMAQQBOAEEAQQA1AEEARABRAEEATwBRAEEANQBBAEQASQBBAE8AdwBBADAAQQBEAGsAQQBOAFEAQQB5AEEARABjAEEATgB3AEEANwBBAEQAUQBBAE8AUQBBADEAQQBEAEkAQQBOAHcAQQAzAEEARABzAEEATgBBAEEANQBBAEQAWQBBAE0AZwBBADIAQQBEAFEAQQBPAHcAQQAwAEEARABrAEEATgB3AEEAeABBAEQAQQBBAE8AUQBBADcAQQBEAFEAQQBPAFEAQQAzAEEARABFAEEATQBBAEEANQBBAEQAcwBBAE4AQQBBADUAQQBEAGMAQQBNAFEAQQB3AEEARABrAEEATwB3AEEAMABBAEQAawBBAE4AdwBBAHgAQQBEAE0AQQBOAEEAQQA3AEEARABRAEEATwBRAEEAMwBBAEQASQBBAE0AQQBBADEAQQBEAHMAQQBOAEEAQQA1AEEARABjAEEATQBnAEEAeABBAEQAQQBBAE8AdwBBADAAQQBEAGsAQQBOAHcAQQB5AEEARABRAEEATQBBAEEANwBBAEQAUQBBAE8AUQBBADMAQQBEAEkAQQBOAEEAQQAxAEEARABzAEEATgBBAEEANQBBAEQAYwBBAE0AZwBBADMAQQBEAFUAQQBPAHcAQQAwAEEARABrAEEATwBBAEEAdwBBAEQAUQBBAE4AdwBBADcAQQBEAFEAQQBPAFEAQQA0AEEARABBAEEATgB3AEEAegBBAEQAcwBBAE4AQQBBADUAQQBEAGcAQQBNAEEAQQAzAEEARABNAEEATwB3AEEAMABBAEQAawBBAE8AQQBBAHcAQQBEAGMAQQBNAHcAQQA3AEEARABRAEEATwBRAEEANABBAEQASQBBAE8AQQBBAHgAQQBEAHMAQQBOAEEAQQA1AEEARABnAEEATQB3AEEANQBBAEQAawBBAE8AdwBBADAAQQBEAGsAQQBPAEEAQQB6AEEARABrAEEATwBRAEEANwBBAEQAUQBBAE8AUQBBADQAQQBEAE0AQQBPAFEAQQA1AEEARABzAEEATgBBAEEANQBBAEQAZwBBAE0AdwBBADUAQQBEAGsAQQBPAHcAQQAwAEEARABrAEEATwBBAEEAegBBAEQAawBBAE8AUQBBADcAQQBEAFEAQQBPAFEAQQA0AEEARABNAEEATwBRAEEANQBBAEQAcwBBAE4AQQBBADUAQQBEAGcAQQBNAHcAQQA1AEEARABrAEEATwB3AEEAMABBAEQAawBBAE8AQQBBAHoAQQBEAGsAQQBPAFEAQQA3AEEARABRAEEATwBRAEEANABBAEQAWQBBAE8AQQBBADAAQQBEAHMAQQBOAEEAQQA1AEEARABnAEEATgBnAEEANABBAEQAUQBBAE8AdwBBADAAQQBEAGsAQQBPAEEAQQAyAEEARABnAEEATgBBAEEANwBBAEQAUQBBAE8AUQBBADQAQQBEAFkAQQBPAEEAQQAwAEEARABzAEEATgBBAEEANQBBAEQAZwBBAE8AUQBBADQAQQBEAFEAQQBPAHcAQQAxAEEARABBAEEATQBRAEEAMQBBAEQAVQBBAE4AZwBBADcAQQBEAFUAQQBNAEEAQQB4AEEARABVAEEATgBRAEEAMgBBAEQAcwBBAE4AUQBBAHcAQQBEAEUAQQBOAFEAQQAxAEEARABZAEEATwB3AEEAMQBBAEQAQQBBAE0AUQBBADEAQQBEAFUAQQBOAGcAQQA3AEEARABVAEEATQBBAEEAeABBAEQAVQBBAE4AUQBBADIAQQBEAHMAQQBOAFEAQQB3AEEARABFAEEATgBRAEEANABBAEQAZwBBAE8AdwBBADEAQQBEAEEAQQBNAFEAQQAyAEEARABBAEEATgBBAEEANwBBAEQAVQBBAE0AQQBBAHkAQQBEAEUAQQBPAEEAQQAzAEEARABzAEEATgBRAEEAdwBBAEQASQBBAE4AQQBBADIAQQBEAFUAQQBPAHcAQQAxAEEARABBAEEATQBnAEEAMABBAEQAWQBBAE4AUQBBADcAQQBEAFUAQQBNAEEAQQB5AEEARABRAEEATgBnAEEAMQBBAEQAcwBBAE4AUQBBAHcAQQBEAEkAQQBOAEEAQQAyAEEARABVAEEATwB3AEEAMQBBAEQAQQBBAE0AZwBBADAAQQBEAFkAQQBOAFEAQQA3AEEARABVAEEATQBBAEEAeQBBAEQAZwBBAE4AZwBBAHkAQQBEAHMAQQBOAFEAQQB3AEEARABRAEEATgBBAEEAMwBBAEQAQQBBAE8AdwBBADEAQQBEAEEAQQBOAEEAQQA0AEEARABZAEEATgBRAEEANwBBAEQAVQBBAE0AQQBBADAAQQBEAGsAQQBPAEEAQQB3AEEARABzAEEATgBRAEEAdwBBAEQAUQBBAE8AUQBBADQAQQBEAEEAQQBPAHcAQQAxAEEARABFAEEATgBBAEEAegBBAEQAVQBBAE8AUQBBADcAQQBEAFUAQQBNAFEAQQAwAEEARABNAEEATgBRAEEANQBBAEQAcwBBAE4AUQBBAHgAQQBEAFEAQQBNAHcAQQAxAEEARABrAEEATwB3AEEAMQBBAEQARQBBAE4AQQBBAHoAQQBEAFUAQQBPAFEAQQA3AEEARABVAEEATQBRAEEAMwBBAEQARQBBAE4AUQBBADIAQQBEAHMAQQBOAFEAQQB4AEEARABjAEEATQBRAEEANABBAEQAVQBBAE8AdwBBADEAQQBEAEUAQQBOAHcAQQB4AEEARABnAEEATgBRAEEANwBBAEQAVQBBAE0AZwBBAHkAQQBEAGcAQQBOAFEAQQA1AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB6AEEARABZAEEATgBRAEEAMgBBAEQAawBBAE0AZwBBADcAQQBEAE0AQQBOAGcAQQAxAEEARABZAEEATwBRAEEAeQBBAEQAcwBBAE0AdwBBADIAQQBEAFUAQQBOAGcAQQA1AEEARABJAEEATwB3AEEAegBBAEQAWQBBAE4AZwBBAHgAQQBEAFUAQQBNAFEAQQA3AEEARABNAEEATgBnAEEANABBAEQAUQBBAE4AUQBBAHcAQQBEAHMAQQBNAHcAQQAzAEEARABNAEEATQB3AEEAeQBBAEQATQBBAE8AdwBBAHoAQQBEAGMAQQBNAHcAQQB6AEEARABJAEEATQB3AEEANwBBAEQATQBBAE4AdwBBADUAQQBEAGcAQQBOAHcAQQB3AEEARABzAEEATQB3AEEAMwBBAEQAawBBAE8AUQBBADMAQQBEAEkAQQBPAHcAQQAwAEEARABjAEEATgBnAEEANQBBAEQAUQBBAE4AUQBBADcAQQBEAFEAQQBPAEEAQQAxAEEARABJAEEATQBBAEEANABBAEQAcwBBAE4AQQBBADQAQQBEAFUAQQBNAGcAQQB3AEEARABnAEEATwB3AEEAMABBAEQAZwBBAE4AUQBBAHkAQQBEAEEAQQBPAEEAQQA3AEEARABRAEEATwBBAEEAMQBBAEQASQBBAE0AQQBBADQAQQBEAHMAQQBOAEEAQQA0AEEARABrAEEATgBRAEEAMQBBAEQATQBBAE8AdwBBADAAQQBEAGsAQQBOAEEAQQAxAEEARABnAEEATgBnAEEANwBBAEQAUQBBAE8AUQBBADAAQQBEAGcAQQBPAFEAQQA0AEEARABzAEEATgBBAEEANQBBAEQAUQBBAE8AQQBBADUAQQBEAGcAQQBPAHcAQQAwAEEARABrAEEATgBBAEEANABBAEQAawBBAE8AQQBBADcAQQBEAFEAQQBPAFEAQQAwAEEARABnAEEATwBRAEEANABBAEQAcwBBAE4AQQBBADUAQQBEAFUAQQBNAEEAQQAwAEEARABrAEEATwB3AEEAMABBAEQAawBBAE4AUQBBAHcAQQBEAFEAQQBPAFEAQQA3AEEARABRAEEATwBRAEEAMQBBAEQAQQBBAE4AQQBBADUAQQBEAHMAQQBOAEEAQQA1AEEARABVAEEATQBBAEEAMABBAEQAawBBAE8AdwBBADAAQQBEAGsAQQBOAFEAQQB3AEEARABRAEEATwBRAEEANwBBAEQAUQBBAE8AUQBBADEAQQBEAE0AQQBOAGcAQQA0AEEARABzAEEATgBBAEEANQBBAEQAVQBBAE4AQQBBADMAQQBEAFkAQQBPAHcAQQAwAEEARABrAEEATgBnAEEAMgBBAEQAQQBBAE4AUQBBADcAQQBEAFEAQQBPAFEAQQAzAEEARABJAEEATwBRAEEANQBBAEQAcwBBAE4AQQBBADUAQQBEAGMAQQBNAGcAQQA1AEEARABrAEEATwB3AEEAMABBAEQAawBBAE4AdwBBAHkAQQBEAFUAQQBPAFEAQQA3AEEARABRAEEATwBRAEEAMwBBAEQASQBBAE8AUQBBADUAQQBEAHMAQQBOAEEAQQA1AEEARABjAEEATQBnAEEAeQBBAEQAZwBBAE8AdwBBADAAQQBEAGsAQQBOAHcAQQB5AEEARABrAEEATwBRAEEANwBBAEQAUQBBAE8AUQBBADMAQQBEAEkAQQBPAFEAQQA1AEEARABzAEEATgBBAEEANQBBAEQAYwBBAE0AZwBBADUAQQBEAGsAQQBPAHcAQQAwAEEARABrAEEATgB3AEEAeQBBAEQAawBBAE8AUQBBADcAQQBEAFEAQQBPAFEAQQA0AEEARABNAEEATQBBAEEAMQBBAEQAcwBBAE4AQQBBADUAQQBEAGcAQQBNAHcAQQB3AEEARABVAEEATwB3AEEAMABBAEQAawBBAE8AQQBBAHoAQQBEAEEAQQBOAFEAQQA3AEEARABRAEEATwBRAEEANABBAEQATQBBAE0AQQBBADEAQQBEAHMAQQBOAEEAQQA1AEEARABnAEEATQB3AEEAdwBBAEQAVQBBAE8AdwBBADAAQQBEAGsAQQBPAEEAQQAwAEEARABVAEEATgBnAEEANwBBAEQAUQBBAE8AUQBBADQAQQBEAFEAQQBOAFEAQQAyAEEARABzAEEATgBBAEEANQBBAEQAZwBBAE8AUQBBADMAQQBEAFkAQQBPAHcAQQAwAEEARABrAEEATwBBAEEAMABBAEQAVQBBAE4AZwBBADcAQQBEAFEAQQBPAFEAQQA0AEEARABRAEEATgBRAEEAMgBBAEQAcwBBAE4AQQBBADUAQQBEAGcAQQBOAEEAQQAxAEEARABZAEEATwB3AEEAMABBAEQAawBBAE8AQQBBADAAQQBEAFUAQQBOAGcAQQA3AEEARABRAEEATwBRAEEANABBAEQAUQBBAE4AUQBBADIAQQBEAHMAQQBOAEEAQQA1AEEARABrAEEATQBRAEEAMwBBAEQAVQBBAE8AdwBBADAAQQBEAGsAQQBPAFEAQQB3AEEARABBAEEATQBnAEEANwBBAEQAUQBBAE8AUQBBADUAQQBEAEUAQQBOAHcAQQAxAEEARABzAEEATgBBAEEANQBBAEQAZwBBAE8AUQBBADMAQQBEAFkAQQBPAHcAQQAwAEEARABrAEEATwBRAEEAegBBAEQAWQBBAE8AUQBBADcAQQBEAFUAQQBNAEEAQQB4AEEARABZAEEATQBBAEEAMwBBAEQAcwBBAE4AUQBBAHcAQQBEAEUAQQBOAGcAQQB5AEEARABBAEEATwB3AEEAMQBBAEQAQQBBAE0AUQBBADIAQQBEAEkAQQBNAEEAQQA3AEEARABVAEEATQBBAEEAeABBAEQAWQBBAE0AZwBBAHcAQQBEAHMAQQBOAFEAQQB3AEEARABFAEEATgBnAEEAeQBBAEQAQQBBAE8AdwBBADEAQQBEAEEAQQBNAFEAQQAyAEEARABJAEEATQBBAEEANwBBAEQAVQBBAE0AQQBBAHgAQQBEAFkAQQBNAGcAQQB3AEEARABzAEEATgBRAEEAdwBBAEQASQBBAE0AZwBBADAAQQBEAE0AQQBPAHcAQQAxAEEARABBAEEATQBnAEEAMgBBAEQAWQBBAE0AUQBBADcAQQBEAFUAQQBNAEEAQQB5AEEARABVAEEATwBRAEEANABBAEQAcwBBAE4AUQBBAHcAQQBEAEkAQQBPAEEAQQAzAEEARABNAEEATwB3AEEAMQBBAEQAQQBBAE0AZwBBADEAQQBEAGsAQQBPAEEAQQA3AEEARABVAEEATQBBAEEAeQBBAEQAVQBBAE0AQQBBADQAQQBEAHMAQQBOAFEAQQB3AEEARABJAEEATwBRAEEAMQBBAEQAVQBBAE8AdwBBADEAQQBEAEEAQQBOAEEAQQA1AEEARABNAEEATQB3AEEANwBBAEQAVQBBAE0AQQBBADEAQQBEAEUAQQBNAEEAQQB6AEEARABzAEEATgBRAEEAdwBBAEQAVQBBAE0AUQBBAHcAQQBEAE0AQQBPAHcAQQAxAEEARABBAEEATgBRAEEAeABBAEQAQQBBAE0AdwBBADcAQQBEAFUAQQBNAFEAQQAwAEEARABRAEEATQBnAEEAegBBAEQAcwBBAE4AUQBBAHgAQQBEAFEAQQBOAEEAQQB4AEEARABNAEEATwB3AEEAMQBBAEQARQBBAE4AQQBBADAAQQBEAEkAQQBNAHcAQQA3AEEARABVAEEATQBRAEEAMABBAEQAUQBBAE0AZwBBAHoAQQBEAHMAQQBOAFEAQQB4AEEARABjAEEATQBnAEEAeQBBAEQAVQBBAE8AdwBBADEAQQBEAEUAQQBOAHcAQQB5AEEARABZAEEATgBnAEEANwBBAEQAVQBBAE0AUQBBADMAQQBEAEkAQQBOAFEAQQB5AEEARABzAEEATgBRAEEAeQBBAEQASQBBAE8AUQBBAHkAQQBEAGcAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE4AZwBBAHkAQQBEAEEAQQBOAEEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQB3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABZAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABrAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAeABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBjAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEgASQBBAEkAQQBCAGoAQQBHAHcAQQBZAFEAQgB6AEEASABNAEEAUABRAEEAaQBBAEcAVQBBAGQAZwBCAGwAQQBHADQAQQBJAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQAxAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBGAEEARQA0AEEAVQB3AEIASABBAEQAQQBBAE0AQQBBAHcAQQBEAEEAQQBNAEEAQQB5AEEARABNAEEATQBBAEEAdwBBAEQASQBBAE0AUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAE8AQQBFAEUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAcwBBAFkAdwBCAG8AQQBIAEkAQQBNAFEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEQARQBBAE8AdwBCAGoAQQBHAGcAQQBjAGcAQQB4AEEARABzAEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADcAQQBHAE0AQQBhAEEAQgB5AEEARABFAEEATwB3AEIAagBBAEcAZwBBAGMAZwBBAHgAQQBEAHMAQQBZAHcAQgBvAEEASABJAEEATQBRAEEANwBBAEcATQBBAGEAQQBCAHkAQQBEAEUAQQBPAHcAQgBqAEEARwBnAEEAYwBnAEEAeABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAMQBBAEQAZwBBAE4AZwBBAHcAQQBEAGMAQQBNAFEAQQA3AEEARABVAEEATwBBAEEAMgBBAEQASQBBAE4AdwBBADQAQQBEAHMAQQBOAFEAQQA0AEEARABZAEEATwBBAEEAeQBBAEQARQBBAE8AdwBBADEAQQBEAGcAQQBOAGcAQQA0AEEARABJAEEATQBRAEEANwBBAEQAVQBBAE8AQQBBADIAQQBEAGsAQQBOAEEAQQAxAEEARABzAEEATgBRAEEANABBAEQAZwBBAE0AUQBBAHgAQQBEAGMAQQBPAHcAQQAxAEEARABrAEEATgBBAEEAeABBAEQAawBBAE0AUQBBADcAQQBEAFUAQQBPAFEAQQAwAEEARABFAEEATwBRAEEANABBAEQAcwBBAE4AUQBBADUAQQBEAFEAQQBNAHcAQQB3AEEARABnAEEATwB3AEEAMQBBAEQAawBBAE4AQQBBAHoAQQBEAEEAQQBPAEEAQQA3AEEARABVAEEATwBRAEEAMABBAEQATQBBAE0AQQBBADQAQQBEAHMAQQBOAFEAQQA1AEEARABRAEEATgBBAEEAMQBBAEQAZwBBAE8AdwBBADEAQQBEAGsAQQBOAEEAQQAyAEEARABJAEEATwBRAEEANwBBAEQAVQBBAE8AUQBBADMAQQBEAEkAQQBPAFEAQQA1AEEARABzAEEATgBnAEEAdwBBAEQARQBBAE0AdwBBADUAQQBEAGcAQQBPAHcAQQAyAEEARABBAEEATQBRAEEAegBBAEQAawBBAE8AQQBBADcAQQBEAFkAQQBNAEEAQQB4AEEARABNAEEATwBRAEEANABBAEQAcwBBAE4AZwBBAHcAQQBEAEUAQQBNAHcAQQA1AEEARABnAEEATwB3AEEAMgBBAEQAQQBBAE0AUQBBAHoAQQBEAGsAQQBPAEEAQQA3AEEARABZAEEATQBBAEEAeABBAEQATQBBAE8AUQBBADQAQQBEAHMAQQBOAGcAQQB3AEEARABFAEEATgBBAEEAegBBAEQAWQBBAE8AdwBBADIAQQBEAEEAQQBOAHcAQQA1AEEARABVAEEATgBRAEEANwBBAEQAWQBBAE0AQQBBADMAQQBEAGsAQQBOAFEAQQAxAEEARABzAEEATgBnAEEAdwBBAEQAYwBBAE8AUQBBADEAQQBEAFUAQQBPAHcAQQAyAEEARABBAEEATgB3AEEANQBBAEQAVQBBAE4AUQBBADcAQQBEAFkAQQBNAEEAQQAzAEEARABrAEEATgBRAEEAMQBBAEQAcwBBAE4AZwBBAHcAQQBEAGMAQQBPAFEAQQAxAEEARABVAEEATwB3AEEAMgBBAEQARQBBAE0AZwBBADMAQQBEAFEAQQBNAFEAQQA3AEEARABZAEEATQBRAEEAeQBBAEQAYwBBAE4AQQBBAHgAQQBEAHMAQQBOAGcAQQB5AEEARABjAEEATQB3AEEAMwBBAEQAYwBBAE8AdwBBADIAQQBEAEkAQQBOAHcAQQA1AEEARABZAEEATQBRAEEANwBBAEQAWQBBAE0AZwBBADQAQQBEAGsAQQBNAFEAQQA1AEEARABzAEEATgBnAEEAeQBBAEQAZwBBAE8AUQBBAHgAQQBEAGsAQQBPAHcAQQAyAEEARABJAEEATwBBAEEANQBBAEQARQBBAE8AUQBBADcAQQBEAFkAQQBNAHcAQQB4AEEARABFAEEATQB3AEEAeABBAEQAcwBBAE4AZwBBAHoAQQBEAEUAQQBNAFEAQQB6AEEARABFAEEATwB3AEEAMgBBAEQATQBBAE0AdwBBAHcAQQBEAFEAQQBOAEEAQQA3AEEARABZAEEATwBRAEEANABBAEQAawBBAE0AZwBBADMAQQBEAHMAQQBOAGcAQQA1AEEARABnAEEATwBRAEEAeQBBAEQAYwBBAE8AdwBBADMAQQBEAEEAQQBNAFEAQQA1AEEARABNAEEATgBnAEEANwBBAEQAYwBBAE0AQQBBAHoAQQBEAFkAQQBPAEEAQQAxAEEARABzAEEATgB3AEEAdwBBAEQATQBBAE4AZwBBADQAQQBEAFUAQQBPAHcAQQAzAEEARABFAEEATQBRAEEAMwBBAEQARQBBAE0AUQBBADcAQQBEAGMAQQBNAFEAQQB4AEEARABjAEEATQBRAEEAeABBAEQAcwBBAE4AdwBBAHgAQQBEAEUAQQBOAHcAQQAyAEEARABVAEEATwB3AEEAMwBBAEQARQBBAE0AUQBBADQAQQBEAFkAQQBOAHcAQQA3AEEARABjAEEATQBnAEEAdwBBAEQAQQBBAE0AZwBBADAAQQBEAHMAQQBOAHcAQQB5AEEARABBAEEATQBBAEEAegBBAEQASQBBAE8AdwBBADMAQQBEAEkAQQBNAEEAQQB3AEEARABNAEEATQBnAEEANwBBAEQAYwBBAE0AZwBBAHcAQQBEAEEAQQBNAHcAQQB5AEEARABzAEEATgB3AEEAeQBBAEQAQQBBAE0AQQBBAHoAQQBEAEkAQQBPAHcAQQAzAEEARABJAEEATQBBAEEAdwBBAEQATQBBAE0AZwBBADcAQQBEAGMAQQBNAGcAQQB3AEEARABBAEEATgBRAEEAegBBAEQAcwBBAE4AdwBBAHkAQQBEAFEAQQBNAHcAQQAxAEEARABnAEEATwB3AEEAMwBBAEQATQBBAE0AZwBBAHcAQQBEAEUAQQBOAHcAQQA3AEEARABjAEEATQB3AEEAeQBBAEQAQQBBAE0AUQBBADMAQQBEAHMAQQBOAHcAQQB6AEEARABJAEEATwBRAEEANABBAEQARQBBAE8AdwBBADQAQQBEAEkAQQBOAHcAQQAyAEEARABjAEEATQBBAEEANwBBAEQAZwBBAE0AZwBBADMAQQBEAFkAQQBOAHcAQQB3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQAxAEEARABnAEEATgBnAEEAegBBAEQAVQBBAE8AQQBBADcAQQBEAFUAQQBPAEEAQQAyAEEARABNAEEATgBRAEEANABBAEQAcwBBAE4AUQBBADQAQQBEAFkAQQBPAFEAQQAxAEEARABVAEEATwB3AEEAMQBBAEQAZwBBAE4AZwBBADUAQQBEAFUAQQBOAFEAQQA3AEEARABVAEEATwBBAEEAMgBBAEQAawBBAE4AUQBBADEAQQBEAHMAQQBOAFEAQQA0AEEARABnAEEATgBBAEEAMQBBAEQATQBBAE8AdwBBADEAQQBEAGsAQQBOAEEAQQAzAEEARABVAEEATgBnAEEANwBBAEQAVQBBAE8AUQBBADAAQQBEAGMAQQBOAFEAQQAyAEEARABzAEEATgBRAEEANQBBAEQAUQBBAE4AdwBBADEAQQBEAFkAQQBPAHcAQQAxAEEARABrAEEATgBBAEEAMwBBAEQAVQBBAE4AZwBBADcAQQBEAFUAQQBPAFEAQQAwAEEARABjAEEATgBRAEEAMgBBAEQAcwBBAE4AUQBBADUAQQBEAFEAQQBOAHcAQQAxAEEARABZAEEATwB3AEEAMQBBAEQAawBBAE4AQQBBADMAQQBEAFUAQQBOAGcAQQA3AEEARABVAEEATwBRAEEANABBAEQAVQBBAE4AUQBBAHgAQQBEAHMAQQBOAGcAQQB3AEEARABFAEEATgBRAEEAMwBBAEQAYwBBAE8AdwBBADIAQQBEAEEAQQBNAFEAQQAxAEEARABjAEEATgB3AEEANwBBAEQAWQBBAE0AQQBBAHgAQQBEAFUAQQBOAHcAQQAzAEEARABzAEEATgBnAEEAdwBBAEQARQBBAE4AUQBBADMAQQBEAGMAQQBPAHcAQQAyAEEARABBAEEATQBRAEEAMQBBAEQAYwBBAE4AdwBBADcAQQBEAFkAQQBNAEEAQQB4AEEARABVAEEATgB3AEEAMwBBAEQAcwBBAE4AZwBBAHcAQQBEAEUAQQBOAFEAQQAzAEEARABjAEEATwB3AEEAMgBBAEQAQQBBAE8AQQBBAHcAQQBEAFUAQQBOAGcAQQA3AEEARABZAEEATQBBAEEANABBAEQAQQBBAE4AUQBBADIAQQBEAHMAQQBOAGcAQQB3AEEARABnAEEATQBBAEEAMQBBAEQAWQBBAE8AdwBBADIAQQBEAEEAQQBPAEEAQQB3AEEARABVAEEATgBnAEEANwBBAEQAWQBBAE0AQQBBADQAQQBEAEEAQQBOAFEAQQAyAEEARABzAEEATgBnAEEAdwBBAEQAZwBBAE0AQQBBADEAQQBEAFkAQQBPAHcAQQAyAEEARABFAEEATQBnAEEANABBAEQAWQBBAE4AQQBBADcAQQBEAFkAQQBNAFEAQQB5AEEARABnAEEATQBRAEEAegBBAEQAcwBBAE4AZwBBAHkAQQBEAGMAQQBPAEEAQQB5AEEARABNAEEATwB3AEEAMgBBAEQASQBBAE8AQQBBAHkAQQBEAEkAQQBNAHcAQQA3AEEARABZAEEATQBnAEEANQBBAEQAQQBBAE0AQQBBADIAQQBEAHMAQQBOAGcAQQB5AEEARABrAEEATQBBAEEAdwBBAEQAWQBBAE8AdwBBADIAQQBEAEkAQQBPAFEAQQB3AEEARABBAEEATgBnAEEANwBBAEQAWQBBAE0AdwBBAHgAQQBEAEUAQQBOAFEAQQB3AEEARABzAEEATgBnAEEAegBBAEQARQBBAE0AZwBBAHcAQQBEAFEAQQBPAHcAQQAyAEEARABNAEEATQB3AEEAeABBAEQASQBBAE8AUQBBADcAQQBEAFkAQQBPAFEAQQA0AEEARABrAEEATgBRAEEANQBBAEQAcwBBAE4AZwBBADUAQQBEAGcAQQBPAFEAQQAxAEEARABrAEEATwB3AEEAMwBBAEQAQQBBAE0AZwBBAHoAQQBEAFEAQQBNAEEAQQA3AEEARABjAEEATQBBAEEAegBBAEQAYwBBAE8AQQBBADUAQQBEAHMAQQBOAHcAQQB3AEEARABNAEEATgB3AEEANABBAEQAawBBAE8AdwBBADMAQQBEAEUAQQBNAFEAQQA1AEEARABJAEEATQBnAEEANwBBAEQAYwBBAE0AUQBBAHgAQQBEAGsAQQBNAGcAQQB5AEEARABzAEEATgB3AEEAeABBAEQARQBBAE8AUQBBAHkAQQBEAEkAQQBPAHcAQQAzAEEARABFAEEATQBRAEEANQBBAEQASQBBAE0AZwBBADcAQQBEAGMAQQBNAGcAQQB3AEEARABJAEEATQBBAEEAMgBBAEQAcwBBAE4AdwBBAHkAQQBEAEEAQQBNAGcAQQB3AEEARABBAEEATwB3AEEAMwBBAEQASQBBAE0AQQBBAHgAQQBEAFUAQQBNAEEAQQA3AEEARABjAEEATQBnAEEAdwBBAEQASQBBAE0AQQBBAHcAQQBEAHMAQQBOAHcAQQB5AEEARABBAEEATQBnAEEAdwBBAEQAQQBBAE8AdwBBADMAQQBEAEkAQQBNAEEAQQB4AEEARABrAEEATgBBAEEANwBBAEQAYwBBAE0AZwBBAHcAQQBEAEkAQQBNAEEAQQB3AEEARABzAEEATgB3AEEAeQBBAEQAUQBBAE4AUQBBADIAQQBEAFEAQQBPAHcAQQAzAEEARABNAEEATQBnAEEAeQBBAEQARQBBAE0AZwBBADcAQQBEAGMAQQBNAHcAQQB5AEEARABJAEEATQBBAEEAMwBBAEQAcwBBAE4AdwBBAHoAQQBEAE0AQQBNAEEAQQAyAEEARABRAEEATwB3AEEANABBAEQASQBBAE4AdwBBADMAQQBEAFkAQQBPAFEAQQA3AEEARABnAEEATQBnAEEAMwBBAEQAYwBBAE8AUQBBADIAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADcAQQBDADAAQQBPAHcAQQB0AEEARABzAEEATABRAEEANwBBAEMAMABBAE8AdwBBAHQAQQBEAHMAQQBMAFEAQQA3AEEAQwAwAEEATwB3AEEAdABBAEQAcwBBAEwAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE4AUQBBADAAQQBEAGsAQQBOAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBOAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQB6AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQAxAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATwBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAEwAdwBCADAAQQBIAEkAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAeQBBAEMAQQBBAFkAdwBCAHMAQQBHAEUAQQBjAHcAQgB6AEEARAAwAEEASQBnAEIAdgBBAEcAUQBBAFoAQQBBAGkAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAFkAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBFAFUAQQBUAGcAQgBUAEEARQBjAEEATQBBAEEAdwBBAEQAQQBBAE0AQQBBAHcAQQBEAEkAQQBNAGcAQQAxAEEARABrAEEATgB3AEEAeQBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEIATgBBAEYAUQBBAFQAZwBCAEUAQQBEAEUAQQBVAEEAQQB5AEEARABNAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQA0AEEAUQBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAWQB3AEIAbwBBAEgASQBBAE0AUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE4AZwBBAHkAQQBEAGsAQQBNAEEAQQAyAEEARABJAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABZAEEATQBnAEEANQBBAEQAUQBBAE0AdwBBAHoAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHIAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHoAQQBEAGMAQQBNAGcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBPAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQAxAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQAxAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABVAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAMABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBjAGcAQQArAEEAQQBvAEEAUABBAEEAdgBBAEgAUQBBAFkAZwBCAHYAQQBHAFEAQQBlAFEAQQArAEEAQQBvAEEAUABBAEEAdgBBAEgAUQBBAFkAUQBCAGkAQQBHAHcAQQBaAFEAQQArAEEAQQA9AD0ACgBzAHUAZgBmAGkAeAA6AA==:31b8e172-b470-440e-83d8-e6b185028602</dt>
+<dd>
+<p>A data.frame: 6 × 14</p>
+</dd>
+<dt>31b8e172-b470-440e-83d8-e6b185028602:dAB5AHAAZQA6AE8AQQBCAGwAQQBHAFkAQQBOAFEAQgBoAEEARABjAEEATgB3AEEAeQBBAEMAMABBAFoAQQBCAGsAQQBEAFkAQQBNAHcAQQB0AEEARABRAEEATgBnAEEAeQBBAEQASQBBAEwAUQBBADQAQQBEAFEAQQBZAGcAQgBtAEEAQwAwAEEAWQBRAEIAbQBBAEQARQBBAE8AUQBBADUAQQBEAFUAQQBZAFEAQQB4AEEARwBJAEEATQBnAEIAaQBBAEQAawBBAAoAcABvAHMAaQB0AGkAbwBuADoATQBnAEEAeABBAEQASQBBAE4AQQBBAHoAQQBBAD0APQAKAHAAcgBlAGYAaQB4ADoACgBzAG8AdQByAGMAZQA6AFAAQQBCADAAQQBHAEUAQQBZAGcAQgBzAEEARwBVAEEAUABnAEEASwBBAEQAdwBBAFkAdwBCAGgAQQBIAEEAQQBkAEEAQgBwAEEARwA4AEEAYgBnAEEAKwBBAEUARQBBAEkAQQBCAGsAQQBHAEUAQQBkAEEAQgBoAEEAQwA0AEEAWgBnAEIAeQBBAEcARQBBAGIAUQBCAGwAQQBEAG8AQQBJAEEAQQAyAEEAQwBBAEEAMQB3AEEAZwBBAEQAawBBAFAAQQBBAHYAQQBHAE0AQQBZAFEAQgB3AEEASABRAEEAYQBRAEIAdgBBAEcANABBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBvAEEARwBVAEEAWQBRAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBjAGcAQQBnAEEARwBNAEEAYgBBAEIAaABBAEgATQBBAGMAdwBBADkAQQBDAEkAQQBhAEEAQgBsAEEARwBFAEEAWgBBAEIAbABBAEgASQBBAEkAZwBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAZwBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBvAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFIAdwBCAGwAQQBHADQAQQBaAFEAQgBwAEEARwBRAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBvAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAGEAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQBjAEEAWgBRAEIAdQBBAEcAVQBBAFUAdwBCADUAQQBHADAAQQBZAGcAQgB2AEEARwB3AEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBvAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAGEAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQBjAEEAWgBRAEIAdQBBAEcAVQBBAFMAUQBCAEUAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAGEAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBnAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAFkAQQBEAEUAQQBNAEEAQQB4AEEAQwA0AEEAWQBnAEIAaABBAEcAMABBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAbwBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBhAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEYAZwBBAE0AUQBBAHcAQQBEAEkAQQBMAGcAQgBpAEEARwBFAEEAYgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBnAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAG8AQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAVwBBAEEAeABBAEQAQQBBAE0AdwBBAHUAQQBHAEkAQQBZAFEAQgB0AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBhAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAZwBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBZAEEARABFAEEATQBBAEEAMABBAEMANABBAFkAZwBCAGgAQQBHADAAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAG8AQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYQBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBGAGcAQQBNAFEAQQB3AEEARABVAEEATABnAEIAaQBBAEcARQBBAGIAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAZwBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBvAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFcAQQBBAHgAQQBEAEEAQQBOAGcAQQB1AEEARwBJAEEAWQBRAEIAdABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAYQBBAEEAKwBBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBjAGcAQQArAEEAQQBvAEEAUABBAEEAdgBBAEgAUQBBAGEAQQBCAGwAQQBHAEUAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcASQBBAGIAdwBCAGsAQQBIAGsAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAeQBBAEMAQQBBAFkAdwBCAHMAQQBHAEUAQQBjAHcAQgB6AEEARAAwAEEASQBnAEIAdgBBAEcAUQBBAFoAQQBBAGkAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAG0AQQBHAHcAQQBkAEEAQQA3AEEARwBNAEEAYQBBAEIAeQBBAEMAWQBBAFoAdwBCADAAQQBEAHMAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBDAFkAQQBiAEEAQgAwAEEARABzAEEAWQB3AEIAbwBBAEgASQBBAEoAZwBCAG4AQQBIAFEAQQBPAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBKAGcAQgBzAEEASABRAEEATwB3AEIAcABBAEcANABBAGQAQQBBAG0AQQBHAGMAQQBkAEEAQQA3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQBtAEEARwB3AEEAZABBAEEANwBBAEcAawBBAGIAZwBCADAAQQBDAFkAQQBaAHcAQgAwAEEARABzAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEAQwBZAEEAYgBBAEIAMABBAEQAcwBBAGEAUQBCAHUAQQBIAFEAQQBKAGcAQgBuAEEASABRAEEATwB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEASgBnAEIAcwBBAEgAUQBBAE8AdwBCAHAAQQBHADQAQQBkAEEAQQBtAEEARwBjAEEAZABBAEEANwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAbQBBAEcAdwBBAGQAQQBBADcAQQBHAGsAQQBiAGcAQgAwAEEAQwBZAEEAWgB3AEIAMABBAEQAcwBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEMAWQBBAGIAQQBCADAAQQBEAHMAQQBhAFEAQgB1AEEASABRAEEASgBnAEIAbgBBAEgAUQBBAE8AdwBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAEoAZwBCAHMAQQBIAFEAQQBPAHcAQgBwAEEARwA0AEEAZABBAEEAbQBBAEcAYwBBAGQAQQBBADcAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQQB2AEEASABRAEEAYwBnAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBIAEkAQQBJAEEAQgBqAEEARwB3AEEAWQBRAEIAegBBAEgATQBBAFAAUQBBAGkAQQBHAFUAQQBkAGcAQgBsAEEARwA0AEEASQBnAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEIARgBBAEUANABBAFUAdwBCAEgAQQBEAEEAQQBNAEEAQQB3AEEARABBAEEATQBBAEEAeQBBAEQASQBBAE4AdwBBAHkAQQBEAE0AQQBNAGcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBWAHcAQgBCAEEARgBNAEEAUwBBAEEAMwBBAEYAQQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEUANABBAFEAUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAE4AZwBBAHkAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBADQAQQBEAFUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAFEAQQBOAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBOAGcAQQB4AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABJAEEATQBBAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAeABBAEQARQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBDADgAQQBkAEEAQgB5AEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAGMAZwBBAGcAQQBHAE0AQQBiAEEAQgBoAEEASABNAEEAYwB3AEEAOQBBAEMASQBBAGIAdwBCAGsAQQBHAFEAQQBJAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB5AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBGAEEARQA0AEEAVQB3AEIASABBAEQAQQBBAE0AQQBBAHcAQQBEAEEAQQBNAEEAQQB5AEEARABjAEEATwBRAEEAMABBAEQAVQBBAE4AdwBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEIAdwBBAEQANABBAFYAdwBCAEIAQQBGAE0AQQBTAEEAQQA1AEEARgBBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQA0AEEAUQBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAMwBBAEQAUQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEQASQBBAE0AZwBBADUAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBAHgAQQBEAE0AQQBNAGcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQAzAEEARABBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATwBRAEEAMgBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQAWQBBAE4AQQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBMAHcAQgAwAEEASABJAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAHkAQQBDAEEAQQBZAHcAQgBzAEEARwBFAEEAYwB3AEIAegBBAEQAMABBAEkAZwBCAGwAQQBIAFkAQQBaAFEAQgB1AEEAQwBJAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAUgBRAEIATwBBAEYATQBBAFIAdwBBAHcAQQBEAEEAQQBNAEEAQQB3AEEARABBAEEATQBnAEEAeQBBAEQAZwBBAE4AQQBBADIAQQBEAE0AQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBUAGcAQgBCAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATQBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATwBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAdwBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQAUQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEQARQBBAE0AUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBMAHcAQgAwAEEASABJAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAHkAQQBDAEEAQQBZAHcAQgBzAEEARwBFAEEAYwB3AEIAegBBAEQAMABBAEkAZwBCAHYAQQBHAFEAQQBaAEEAQQBpAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABRAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARQBVAEEAVABnAEIAVABBAEUAYwBBAE0AQQBBAHcAQQBEAEEAQQBNAEEAQQB3AEEARABJAEEATwBRAEEAdwBBAEQATQBBAE8AQQBBADEAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBFADQAQQBRAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQB3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABBAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABZAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABrAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgB3AEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAeABBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBBAHYAQQBIAFEAQQBjAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEgASQBBAEkAQQBCAGoAQQBHAHcAQQBZAFEAQgB6AEEASABNAEEAUABRAEEAaQBBAEcAVQBBAGQAZwBCAGwAQQBHADQAQQBJAGcAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQAxAEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBGAEEARQA0AEEAVQB3AEIASABBAEQAQQBBAE0AQQBBAHcAQQBEAEEAQQBNAEEAQQB5AEEARABNAEEATQBBAEEAdwBBAEQASQBBAE0AUQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBkAEEAQgBrAEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAE8AQQBFAEUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAFUAQQBQAEEAQQB2AEEASABBAEEAUABnAEEAOABBAEMAOABBAGQAQQBCAGsAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAWgBBAEEAKwBBAEQAdwBBAGMAQQBBACsAQQBEAEUAQQBNAHcAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBOAFEAQQA4AEEAQwA4AEEAYwBBAEEAKwBBAEQAdwBBAEwAdwBCADAAQQBHAFEAQQBQAGcAQQBLAEEARAB3AEEAZABBAEIAawBBAEQANABBAFAAQQBCAHcAQQBEADQAQQBNAFEAQQB3AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQQB4AEEARABVAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABnAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEMAOABBAGQAQQBCAHkAQQBEADQAQQBDAGcAQQA4AEEASABRAEEAYwBnAEEAZwBBAEcATQBBAGIAQQBCAGgAQQBIAE0AQQBjAHcAQQA5AEEAQwBJAEEAYgB3AEIAawBBAEcAUQBBAEkAZwBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBBADIAQQBEAHcAQQBMAHcAQgB3AEEARAA0AEEAUABBAEEAdgBBAEgAUQBBAFoAQQBBACsAQQBBAG8AQQBQAEEAQgAwAEEARwBRAEEAUABnAEEAOABBAEgAQQBBAFAAZwBCAEYAQQBFADQAQQBVAHcAQgBIAEEARABBAEEATQBBAEEAdwBBAEQAQQBBAE0AQQBBAHkAQQBEAEkAQQBOAFEAQQA1AEEARABjAEEATQBnAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEAVABRAEIAVQBBAEUANABBAFIAQQBBAHgAQQBGAEEAQQBNAGcAQQB6AEEARAB3AEEATAB3AEIAdwBBAEQANABBAFAAQQBBAHYAQQBIAFEAQQBaAEEAQQArAEEAQQBvAEEAUABBAEIAMABBAEcAUQBBAFAAZwBBADgAQQBIAEEAQQBQAGcAQgBPAEEARQBFAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABrAEEAUABBAEEAdgBBAEgAQQBBAFAAZwBBADgAQQBDADgAQQBkAEEAQgBrAEEARAA0AEEAQwBnAEEAOABBAEgAUQBBAFoAQQBBACsAQQBEAHcAQQBjAEEAQQArAEEARABFAEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATgBRAEEAOABBAEMAOABBAGMAQQBBACsAQQBEAHcAQQBMAHcAQgAwAEEARwBRAEEAUABnAEEASwBBAEQAdwBBAGQAQQBCAGsAQQBEADQAQQBQAEEAQgB3AEEARAA0AEEATQBRAEEAMQBBAEQAdwBBAEwAdwBCAHcAQQBEADQAQQBQAEEAQQB2AEEASABRAEEAWgBBAEEAKwBBAEEAbwBBAFAAQQBCADAAQQBHAFEAQQBQAGcAQQA4AEEASABBAEEAUABnAEEAeABBAEQAVQBBAFAAQQBBAHYAQQBIAEEAQQBQAGcAQQA4AEEAQwA4AEEAZABBAEIAawBBAEQANABBAEMAZwBBADgAQQBIAFEAQQBaAEEAQQArAEEARAB3AEEAYwBBAEEAKwBBAEQARQBBAE4AQQBBADgAQQBDADgAQQBjAEEAQQArAEEARAB3AEEATAB3AEIAMABBAEcAUQBBAFAAZwBBAEsAQQBEAHcAQQBMAHcAQgAwAEEASABJAEEAUABnAEEASwBBAEQAdwBBAEwAdwBCADAAQQBHAEkAQQBiAHcAQgBrAEEASABrAEEAUABnAEEASwBBAEQAdwBBAEwAdwBCADAAQQBHAEUAQQBZAGcAQgBzAEEARwBVAEEAUABnAEEAPQAKAHMAdQBmAGYAaQB4ADoA:31b8e172-b470-440e-83d8-e6b185028602</dt>
+<dd>
+<p>A data.frame: 6 × 9</p>
+</dd>
+</dl>
+</section>
+<section id="使用readr包读取矩阵数据" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="使用readr包读取矩阵数据"><span class="header-section-number">4.6</span> 使用<strong>readr</strong>包，读取矩阵数据</h2>
+<blockquote class="blockquote">
+<p>由于样品名首位必须以<strong>字母</strong>命名,所以要定义新的列名 删除空白，NA以及去重复，将清理后的数据写入新的CSV文件，得到cleaned_data</p>
+</blockquote>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#第二步----------------------------------------------------------------------------------</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"matrix.csv"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>new_col_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"c1"</span>,<span class="st">"c2"</span>,<span class="st">"c3"</span>,<span class="st">"k1"</span>, <span class="st">"k2"</span>,<span class="st">"k3"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data)[<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>] <span class="ot">&lt;-</span> new_col_names <span class="co">#看有多少个样品</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cleaned_data <span class="ot">&lt;-</span> data[data<span class="sc">$</span>GeneSymbol <span class="sc">!=</span> <span class="st">""</span>, ]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>cleaned_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(cleaned_data)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>data_unique <span class="ot">&lt;-</span> cleaned_data[<span class="sc">!</span><span class="fu">duplicated</span>(cleaned_data[[<span class="dv">1</span>]]), ]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(data_unique, <span class="st">"cleaned_matrix.csv"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data_unique)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top table">
+<caption>A data.frame: 6 × 7</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 16%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>GeneSymbol</th>
+<th>c1</th>
+<th>c2</th>
+<th>c3</th>
+<th>k1</th>
+<th>k2</th>
+<th>k3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>&lt;chr&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+<td>&lt;int&gt;</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>WASH7P</td>
+<td>62</td>
+<td>85</td>
+<td>45</td>
+<td>61</td>
+<td>120</td>
+<td>111</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>WASH9P</td>
+<td>174</td>
+<td>229</td>
+<td>132</td>
+<td>170</td>
+<td>196</td>
+<td>164</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>MTND1P23</td>
+<td>9</td>
+<td>15</td>
+<td>5</td>
+<td>15</td>
+<td>15</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>MTND2P28</td>
+<td>1486</td>
+<td>2254</td>
+<td>1359</td>
+<td>1824</td>
+<td>3091</td>
+<td>2280</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>MTCO1P12</td>
+<td>679</td>
+<td>918</td>
+<td>508</td>
+<td>515</td>
+<td>866</td>
+<td>592</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>MTCO2P12</td>
+<td>13</td>
+<td>9</td>
+<td>15</td>
+<td>8</td>
+<td>10</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./rna-analysis.html" class="pagination-link" aria-label="转录组上游分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./dnbc4tools.html" class="pagination-link" aria-label="Single cell upstream analysis">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Single cell upstream analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

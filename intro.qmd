@@ -1,0 +1,10 @@
+# Introduction
+
+This book is a study note on Linux and R code created by Huang Shasha.
+
+
+
+```{r}
+library(pacman)
+p_load(ggplot2)
+```

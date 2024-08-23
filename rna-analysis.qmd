@@ -1,0 +1,107 @@
+---
+title: "转录组上游分析"
+---
+
+## 运行Fastqc
+
+``` python
+nohup ./fastqc.sh >fastqc.log 2>&1 &
+```
+
+> 运行前检查脚本权限是否开通——chmod +x \*.sh\
+> 文件格式记得检查修改(fastq.gz;fq.gz)
+
+``` python
+#!/bin/bash
+cd ./raw_data
+mkdir -p ../fastqc_results
+
+for file in *_1.fq.gz 
+do
+    base_name=$(echo $file | sed 's/_1.fq.gz//')
+    file2=${base_name}_2.fq.gz
+    if [ -e "$file2" ]; then
+        echo "Running fastqc on $file and $file2 with 10 threads..."
+        
+        fastqc -t 10 -o ../fastqc_results $file $file2 
+    else echo "Matching file for $file not found."
+    fi 
+done 
+echo "FastQC analysis is complete."
+```
+
+## 运行Trim_galord
+
+``` python
+nohup ./trim_galore.sh >trim_galore.log 2>&1 &
+```
+
+> 文件格式记得检查修改(fastq.gz;fq.gz)
+
+``` python
+#!/bin/bash
+cd ./raw_data
+output_dir="../trimmed" 
+if [ ! -d "$output_dir" ]; then 
+  mkdir -p "$output_dir" 
+fi
+
+for file in *_1.fq.gz 
+do 
+  base=$(basename $file _1.fq.gz)
+  file1=${base}_1.fq.gz 
+  file2=${base}_2.fq.gz 
+  
+  if [ -f "$file2" ]; then 
+    echo "Processing $file1 and $file2 with trim_galore..."
+    
+    trim_galore  -q 20 --phred33 --stringency 3 --length 20 -e 0.1 -o $output_dir --paired $file1 $file2 
+  else
+    echo "Paired file for $file1 not found." 
+  fi 
+done
+```
+
+## 运行Hisat2
+
+``` python
+nohup ./hisat2.sh >hisat2.log 2>&1 &
+```
+
+> 注：mouse——grcm38;human——grch38\
+> 文件格式记得检查修改(fastq.gz;fq.gz)
+
+``` python
+#!/bin/bash
+cd ./trimmed
+
+
+INDEX="$HOME/lwl/reference/grcm38/genome"
+OUTPUT_DIR="../bam/"   
+THREADS=12                    
+
+
+mkdir -p $OUTPUT_DIR
+
+for R1 in *_1_val_1.fq.gz
+do
+    BASE=$(basename $R1 _1_val_1.fq.gz)
+    R2=${BASE}_2_val_2.fq.gz
+    output_bam=${OUTPUT_DIR}/${BASE}.bam
+    hisat2 -p $THREADS -x $INDEX -1 $R1 -2 $R2 | samtools view -Sb > $output_bam 
+    
+    echo "Processed $BASE"
+done
+```
+
+## 运行下面代码获得**counts.txt**文件
+
+> 注：mouse——vM35,human——v46\
+> 用excel打开删除第一行，保存为.CSV文件
+
+``` python
+featureCounts -T 12 -p -t exon -g gene_id -a ~/lwl/reference/gencode.vM35.chr_patch_hapl_scaff.annotation.gtf.gz -o ./counts.txt *.bam
+```
+
+``` python
+```

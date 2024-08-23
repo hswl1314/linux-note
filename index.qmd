@@ -1,0 +1,21 @@
+# 转录组测序分析 {.unnumbered}
+
+这是hss总结的转录组分析笔记
+
+文献查找请登录 [pubmed](https://pubmed.ncbi.nlm.nih.gov/)
+
+Quarto操作查询请登录[Quarto操作指南](https://quarto.org/docs/guide/)
+
+Markdown语法[Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html)
+
+李申锁笔记[R&python&linux](https://lishensuo.github.io/)
+
+杜俊宏笔记[R语言和单细胞](https://djhcod.github.io/r-notes/)
+
+To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+以下是示例代码
+
+```{r}
+1 + 1
+```

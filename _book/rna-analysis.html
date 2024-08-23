@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>mybook-hss - 2&nbsp; 介绍两种下载方法</title>
+<title>3&nbsp; 转录组上游分析 – Hss's Notebook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./clean.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./r-note.html" rel="next">
+<link href="./ascp.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -112,13 +112,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ascp.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rna-analysis.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -130,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">mybook-hss</a> 
+      <a href="./">Hss’s Notebook</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -143,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">转录组测序分析</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -154,20 +154,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ascp.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ascp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./clean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">clean</span></span></a>
+  <a href="./rna-analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./r-note.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">上游矩阵到clean_data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dnbc4tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Single cell upstream analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Oxidized_Phospholipidomics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Oxidized Phospholipidomics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Quarto_operation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quarto_operation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -186,19 +204,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ascp" id="toc-ascp" class="nav-link active" data-scroll-target="#ascp"><span class="header-section-number">2.1</span> ascp</a>
-  <ul class="collapse">
-  <li><a href="#ena下载链接改名" id="toc-ena下载链接改名" class="nav-link" data-scroll-target="#ena下载链接改名"><span class="header-section-number">2.1.1</span> ENA下载链接改名</a></li>
-  <li><a href="#运行代码为-nohup-ascp.sh-ascp.log-21" id="toc-运行代码为-nohup-ascp.sh-ascp.log-21" class="nav-link" data-scroll-target="#运行代码为-nohup-ascp.sh-ascp.log-21"><span class="header-section-number">2.1.2</span> 运行代码为 nohup ascp.sh &gt;ascp.log 2&gt;&amp;1 &amp;</a></li>
-  <li><a href="#将文件转移到raw_data" id="toc-将文件转移到raw_data" class="nav-link" data-scroll-target="#将文件转移到raw_data"><span class="header-section-number">2.1.3</span> 将文件转移到raw_data</a></li>
-  </ul></li>
-  <li><a href="#prefetch" id="toc-prefetch" class="nav-link" data-scroll-target="#prefetch"><span class="header-section-number">2.2</span> prefetch</a>
-  <ul class="collapse">
-  <li><a href="#下载srr文件" id="toc-下载srr文件" class="nav-link" data-scroll-target="#下载srr文件"><span class="header-section-number">2.2.1</span> 下载SRR文件</a></li>
-  <li><a href="#把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" id="toc-把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" class="nav-link" data-scroll-target="#把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来"><span class="header-section-number">2.2.2</span> 把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来</a></li>
-  <li><a href="#将sra文件转化为fastq文件完成后删除.sra文件" id="toc-将sra文件转化为fastq文件完成后删除.sra文件" class="nav-link" data-scroll-target="#将sra文件转化为fastq文件完成后删除.sra文件"><span class="header-section-number">2.2.3</span> 将SRA文件转化为fastq文件,完成后删除*.sra文件</a></li>
-  <li><a href="#将fastq文件压缩为fq.gz文件" id="toc-将fastq文件压缩为fq.gz文件" class="nav-link" data-scroll-target="#将fastq文件压缩为fq.gz文件"><span class="header-section-number">2.2.4</span> 将fastq文件压缩为fq.gz文件</a></li>
-  </ul></li>
+  <li><a href="#运行fastqc" id="toc-运行fastqc" class="nav-link active" data-scroll-target="#运行fastqc"><span class="header-section-number">3.1</span> 运行Fastqc</a></li>
+  <li><a href="#运行trim_galord" id="toc-运行trim_galord" class="nav-link" data-scroll-target="#运行trim_galord"><span class="header-section-number">3.2</span> 运行Trim_galord</a></li>
+  <li><a href="#运行hisat2" id="toc-运行hisat2" class="nav-link" data-scroll-target="#运行hisat2"><span class="header-section-number">3.3</span> 运行Hisat2</a></li>
+  <li><a href="#运行下面代码获得counts.txt文件" id="toc-运行下面代码获得counts.txt文件" class="nav-link" data-scroll-target="#运行下面代码获得counts.txt文件"><span class="header-section-number">3.4</span> 运行下面代码获得<strong>counts.txt</strong>文件</a></li>
   </ul>
 </nav>
     </div>
@@ -207,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></h1>
 </div>
 
 
@@ -224,83 +233,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="运行fastqc" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="运行fastqc"><span class="header-section-number">3.1</span> 运行Fastqc</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>nohup .<span class="op">/</span>fastqc.sh <span class="op">&gt;</span>fastqc.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
-<p><strong>ascp</strong> 注：须conda activate download<br>
-<strong>prefetch</strong> 可省略激活步骤</p>
+<p>运行前检查脚本权限是否开通——chmod +x *.sh<br>
+文件格式记得检查修改(fastq.gz;fq.gz)</p>
 </blockquote>
-<section id="ascp" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="ascp"><span class="header-section-number">2.1</span> ascp</h2>
-<ul>
-<li>进入<strong>NCBI</strong>,在<strong>DataSets</strong>栏下搜索文献测序数据，如bulk码为GSE95424;单细胞码为PRJNA906632;</li>
-<li>将<strong>BioProject</strong>码复制到www.ebi.ac.uk的Enter acsession栏进行搜索;</li>
-<li>Show Column Selection的fastq_*选项全选中;</li>
-<li>Download ALL——Generated FASTQ files:FTP,将文件重命名为fq.txt,并上传到服务器。</li>
-</ul>
-<section id="ena下载链接改名" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="ena下载链接改名"><span class="header-section-number">2.1.1</span> ENA下载链接改名</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sed <span class="sc">-</span>i <span class="st">'s/wget -nc ftp:\/\/ftp.sra.ebi.ac.uk/fasp.sra.ebi.ac.uk:/g'</span> fq.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cd .<span class="op">/</span>raw_data</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mkdir <span class="op">-</span>p ..<span class="op">/</span>fastqc_results</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> <span class="op">*</span>_1.fq.gz </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>do</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    base_name<span class="op">=</span>$(echo $file <span class="op">|</span> sed <span class="st">'s/_1.fq.gz//'</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    file2<span class="op">=</span>${base_name}_2.fq.gz</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> [ <span class="op">-</span>e <span class="st">"$file2"</span> ]<span class="op">;</span> then</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        echo <span class="st">"Running fastqc on $file and $file2 with 10 threads..."</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        fastqc <span class="op">-</span>t <span class="dv">10</span> <span class="op">-</span>o ..<span class="op">/</span>fastqc_results $file $file2 </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> echo <span class="st">"Matching file for $file not found."</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    fi </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>done </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>echo <span class="st">"FastQC analysis is complete."</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="运行代码为-nohup-ascp.sh-ascp.log-21" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="运行代码为-nohup-ascp.sh-ascp.log-21"><span class="header-section-number">2.1.2</span> 运行代码为 nohup ascp.sh &gt;ascp.log 2&gt;&amp;1 &amp;</h3>
+<section id="运行trim_galord" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="运行trim_galord"><span class="header-section-number">3.2</span> 运行Trim_galord</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>nohup .<span class="op">/</span>trim_galore.sh <span class="op">&gt;</span>trim_galore.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
-<p>下载下来的压缩包一般为*.fastq.gz</p>
+<p>文件格式记得检查修改(fastq.gz;fq.gz)</p>
 </blockquote>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ascp.sh 内容如下</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#批量下载</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cat fq.txt <span class="sc">|</span><span class="cf">while</span> read id </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>do </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ascp <span class="sc">-</span>QT <span class="sc">-</span>l <span class="dv">300</span>m <span class="sc">-</span>P33001 <span class="sc">-</span>k <span class="dv">1</span> <span class="sc">-</span>i <span class="sc">~</span><span class="er">/</span>.conda<span class="sc">/</span>envs<span class="sc">/</span>download<span class="sc">/</span>etc<span class="sc">/</span>asperaweb_id_dsa.openssh era<span class="sc">-</span>fasp<span class="sc">@</span><span class="er">$</span>id .</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>done</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#单独下载</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ascp <span class="sc">-</span>QT <span class="sc">-</span>l <span class="dv">300</span>m <span class="sc">-</span>P33001 <span class="sc">-</span>k <span class="dv">1</span> <span class="sc">-</span>i <span class="sc">~</span><span class="er">/</span>.conda<span class="sc">/</span>envs<span class="sc">/</span>download<span class="sc">/</span>etc<span class="sc">/</span>asperaweb_id_dsa.openssh era<span class="sc">-</span>fasp<span class="sc">@</span>将①改名后的内容选择一个复制进来 .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cd .<span class="op">/</span>raw_data</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>output_dir<span class="op">=</span><span class="st">"../trimmed"</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> [ <span class="op">!</span> <span class="op">-</span>d <span class="st">"$output_dir"</span> ]<span class="op">;</span> then </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  mkdir <span class="op">-</span>p <span class="st">"$output_dir"</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>fi</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> <span class="op">*</span>_1.fq.gz </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>do </span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  base<span class="op">=</span>$(basename $file _1.fq.gz)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  file1<span class="op">=</span>${base}_1.fq.gz </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  file2<span class="op">=</span>${base}_2.fq.gz </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> [ <span class="op">-</span>f <span class="st">"$file2"</span> ]<span class="op">;</span> then </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"Processing $file1 and $file2 with trim_galore..."</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    trim_galore  <span class="op">-</span>q <span class="dv">20</span> <span class="op">--</span>phred33 <span class="op">--</span>stringency <span class="dv">3</span> <span class="op">--</span>length <span class="dv">20</span> <span class="op">-</span>e <span class="fl">0.1</span> <span class="op">-</span>o $output_dir <span class="op">--</span>paired $file1 $file2 </span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"Paired file for $file1 not found."</span> </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  fi </span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="将文件转移到raw_data" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="将文件转移到raw_data"><span class="header-section-number">2.1.3</span> 将文件转移到raw_data</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mkdir raw_data</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mv <span class="sc">*</span>.fastq.gz raw_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="prefetch" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="prefetch"><span class="header-section-number">2.2</span> prefetch</h2>
-<ul>
-<li>进入<strong>NCBI</strong>,在<strong>DataSets</strong>栏下搜索文献测序数据，如bulk码为GSE95424;单细胞码为PRJNA906632</li>
-<li>点击SRA Run Selector进入网页，再点击select选项下的Accession List下载</li>
-<li>获得SRR_Acc_List.txt文件，并上传到服务器 注：打开此文件光标要位于空白行的首位。</li>
-</ul>
-<section id="下载srr文件" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="下载srr文件"><span class="header-section-number">2.2.1</span> 下载SRR文件</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p raw_data</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#批量下载</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nohup prefetch <span class="sc">-</span>O .<span class="sc">/</span>raw_data <span class="sc">--</span>option<span class="sc">-</span>file SRR_Acc_List.txt <span class="sc">&gt;</span>prefetch.log <span class="dv">2</span><span class="sc">&gt;</span><span class="er">&amp;</span><span class="dv">1</span> <span class="sc">&amp;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#单独下载一个</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>prefetch SRRXXXXXXXX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来"><span class="header-section-number">2.2.2</span> 把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>find . <span class="sc">-</span>mindepth <span class="dv">2</span> <span class="sc">-</span>maxdepth <span class="dv">2</span> <span class="sc">-</span>type f <span class="sc">-</span>name <span class="st">"*.sra"</span> <span class="sc">-</span>exec mv {} . \;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="将sra文件转化为fastq文件完成后删除.sra文件" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="将sra文件转化为fastq文件完成后删除.sra文件"><span class="header-section-number">2.2.3</span> 将SRA文件转化为fastq文件,完成后删除*.sra文件</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-S是--split-files，#-e 10开十线程，#*.sra所有sra文件 --include-technical为单细胞才加</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nohup fasterq<span class="sc">-</span>dump <span class="sc">-</span>S <span class="sc">-</span>e <span class="dv">10</span> <span class="sc">*</span>.sra <span class="sc">&gt;</span>faster1.log <span class="dv">2</span><span class="sc">&gt;</span><span class="er">&amp;</span><span class="dv">1</span> <span class="sc">&amp;</span></span>
+<section id="运行hisat2" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="运行hisat2"><span class="header-section-number">3.3</span> 运行Hisat2</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nohup .<span class="op">/</span>hisat2.sh <span class="op">&gt;</span>hisat2.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>注：mouse——grcm38;human——grch38<br>
+文件格式记得检查修改(fastq.gz;fq.gz)</p>
+</blockquote>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cd .<span class="op">/</span>trimmed</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#转化单独一个文件</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>fasterq<span class="sc">-</span>dump <span class="sc">-</span>S <span class="sc">-</span>e <span class="dv">10</span> SRRXXXXXXX.sra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>INDEX<span class="op">=</span><span class="st">"$HOME/lwl/reference/grcm38/genome"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>OUTPUT_DIR<span class="op">=</span><span class="st">"../bam/"</span>   </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>THREADS<span class="op">=</span><span class="dv">12</span>                    </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>mkdir <span class="op">-</span>p $OUTPUT_DIR</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> R1 <span class="kw">in</span> <span class="op">*</span>_1_val_1.fq.gz</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>do</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    BASE<span class="op">=</span>$(basename $R1 _1_val_1.fq.gz)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    R2<span class="op">=</span>${BASE}_2_val_2.fq.gz</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    output_bam<span class="op">=</span>${OUTPUT_DIR}<span class="op">/</span>${BASE}.bam</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    hisat2 <span class="op">-</span>p $THREADS <span class="op">-</span>x $INDEX <span class="op">-</span><span class="dv">1</span> $R1 <span class="op">-</span><span class="dv">2</span> $R2 <span class="op">|</span> samtools view <span class="op">-</span>Sb <span class="op">&gt;</span> $output_bam </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    echo <span class="st">"Processed $BASE"</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="将fastq文件压缩为fq.gz文件" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="将fastq文件压缩为fq.gz文件"><span class="header-section-number">2.2.4</span> 将fastq文件压缩为fq.gz文件</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-k 保留原文件，-d是解压</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nohup gzip  <span class="sc">*</span>.fastq <span class="sc">&gt;</span>gzip.log <span class="dv">2</span><span class="sc">&gt;</span><span class="er">&amp;</span><span class="dv">1</span> <span class="sc">&amp;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#压缩单独一个</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gzip SRRXXXXXX.fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="运行下面代码获得counts.txt文件" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="运行下面代码获得counts.txt文件"><span class="header-section-number">3.4</span> 运行下面代码获得<strong>counts.txt</strong>文件</h2>
+<blockquote class="blockquote">
+<p>注：mouse——vM35,human——v46<br>
+用excel打开删除第一行，保存为.CSV文件</p>
+</blockquote>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>featureCounts <span class="op">-</span>T <span class="dv">12</span> <span class="op">-</span>p <span class="op">-</span>t exon <span class="op">-</span>g gene_id <span class="op">-</span>a <span class="op">~/</span>lwl<span class="op">/</span>reference<span class="op">/</span>gencode.vM35.chr_patch_hapl_scaff.annotation.gtf.gz <span class="op">-</span>o .<span class="op">/</span>counts.txt <span class="op">*</span>.bam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -339,18 +361,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -382,7 +393,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -390,7 +423,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -715,13 +748,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./ascp.html" class="pagination-link" aria-label="介绍两种下载方法">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./clean.html" class="pagination-link" aria-label="clean">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">clean</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./r-note.html" class="pagination-link" aria-label="上游矩阵到clean_data">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">上游矩阵到clean_data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
