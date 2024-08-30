@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; 介绍两种下载方法 – Bioinfo Notebook</title>
+<title>6&nbsp; VScode-R – Bioinfo Notebook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./rna-analysis.html" rel="next">
-<link href="./intro.html" rel="prev">
+<link href="./Quarto_operation.html" rel="next">
+<link href="./dnbc4tools.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ascp.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./vscode-R.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">VScode-R</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ascp.html" class="sidebar-item-text sidebar-link active">
+  <a href="./ascp.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></span></a>
   </div>
 </li>
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./vscode-R.html" class="sidebar-item-text sidebar-link">
+  <a href="./vscode-R.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">VScode-R</span></span></a>
   </div>
 </li>
@@ -204,18 +204,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ascp" id="toc-ascp" class="nav-link active" data-scroll-target="#ascp"><span class="header-section-number">2.1</span> Ascp</a>
+  <li><a href="#安装r" id="toc-安装r" class="nav-link active" data-scroll-target="#安装r"><span class="header-section-number">6.1</span> 安装R</a></li>
+  <li><a href="#安装vscode" id="toc-安装vscode" class="nav-link" data-scroll-target="#安装vscode"><span class="header-section-number">6.2</span> 安装VScode</a></li>
+  <li><a href="#配置扩展程序" id="toc-配置扩展程序" class="nav-link" data-scroll-target="#配置扩展程序"><span class="header-section-number">6.3</span> 配置扩展程序</a>
   <ul class="collapse">
-  <li><a href="#ena下载链接改名" id="toc-ena下载链接改名" class="nav-link" data-scroll-target="#ena下载链接改名"><span class="header-section-number">2.1.1</span> ENA下载链接改名</a></li>
-  <li><a href="#运行代码为-nohup-ascp.sh-ascp.log-21" id="toc-运行代码为-nohup-ascp.sh-ascp.log-21" class="nav-link" data-scroll-target="#运行代码为-nohup-ascp.sh-ascp.log-21"><span class="header-section-number">2.1.2</span> 运行代码为 nohup ascp.sh &gt;ascp.log 2&gt;&amp;1 &amp;</a></li>
-  <li><a href="#将文件转移到raw_data" id="toc-将文件转移到raw_data" class="nav-link" data-scroll-target="#将文件转移到raw_data"><span class="header-section-number">2.1.3</span> 将文件转移到raw_data</a></li>
-  </ul></li>
-  <li><a href="#prefetch" id="toc-prefetch" class="nav-link" data-scroll-target="#prefetch"><span class="header-section-number">2.2</span> prefetch</a>
-  <ul class="collapse">
-  <li><a href="#下载srr文件" id="toc-下载srr文件" class="nav-link" data-scroll-target="#下载srr文件"><span class="header-section-number">2.2.1</span> 下载SRR文件</a></li>
-  <li><a href="#把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" id="toc-把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" class="nav-link" data-scroll-target="#把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来"><span class="header-section-number">2.2.2</span> 把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来</a></li>
-  <li><a href="#将sra文件转化为fastq文件完成后删除.sra文件" id="toc-将sra文件转化为fastq文件完成后删除.sra文件" class="nav-link" data-scroll-target="#将sra文件转化为fastq文件完成后删除.sra文件"><span class="header-section-number">2.2.3</span> 将SRA文件转化为fastq文件,完成后删除*.sra文件</a></li>
-  <li><a href="#将fastq文件压缩为fq.gz文件" id="toc-将fastq文件压缩为fq.gz文件" class="nav-link" data-scroll-target="#将fastq文件压缩为fq.gz文件"><span class="header-section-number">2.2.4</span> 将fastq文件压缩为fq.gz文件</a></li>
+  <li><a href="#安装r插件" id="toc-安装r插件" class="nav-link" data-scroll-target="#安装r插件"><span class="header-section-number">6.3.1</span> 安装R插件</a></li>
+  <li><a href="#安装-languageserver和httpdg" id="toc-安装-languageserver和httpdg" class="nav-link" data-scroll-target="#安装-languageserver和httpdg"><span class="header-section-number">6.3.2</span> 安装 languageserver和httpdg</a></li>
+  <li><a href="#安装radian暂时有bug可不安" id="toc-安装radian暂时有bug可不安" class="nav-link" data-scroll-target="#安装radian暂时有bug可不安"><span class="header-section-number">6.3.3</span> 安装Radian(暂时有bug可不安)</a></li>
+  <li><a href="#配置radian暂时不用radian用r" id="toc-配置radian暂时不用radian用r" class="nav-link" data-scroll-target="#配置radian暂时不用radian用r"><span class="header-section-number">6.3.4</span> 配置radian(暂时不用radian用R)</a></li>
+  <li><a href="#其他配置" id="toc-其他配置" class="nav-link" data-scroll-target="#其他配置"><span class="header-section-number">6.3.5</span> 其他配置</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -225,7 +222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">介绍两种下载方法</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">VScode-R</span></h1>
 </div>
 
 
@@ -242,80 +239,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<blockquote class="blockquote">
-<p><strong>ascp</strong> 注：须conda activate download<br>
-<strong>prefetch</strong> 可省略激活步骤</p>
-</blockquote>
-<section id="ascp" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="ascp"><span class="header-section-number">2.1</span> Ascp</h2>
+<section id="安装r" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="安装r"><span class="header-section-number">6.1</span> 安装R</h2>
+<p>官网<a href="https://www.r-project.org/">R语言下载</a></p>
+</section>
+<section id="安装vscode" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="安装vscode"><span class="header-section-number">6.2</span> 安装VScode</h2>
+<p>官网<a href="https://code.visualstudio.com/Download">VScode下载</a></p>
+</section>
+<section id="配置扩展程序" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="配置扩展程序"><span class="header-section-number">6.3</span> 配置扩展程序</h2>
+<section id="安装r插件" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="安装r插件"><span class="header-section-number">6.3.1</span> 安装R插件</h3>
 <ul>
-<li>进入<strong>NCBI</strong>,在<strong>DataSets</strong>栏下搜索文献测序数据，如bulk码为GSE95424;单细胞码为PRJNA906632;</li>
-<li>将<strong>BioProject</strong>码复制到www.ebi.ac.uk的Enter acsession栏进行搜索;</li>
-<li>Show Column Selection的fastq_*选项全选中;</li>
-<li>Download ALL——Generated FASTQ files:FTP,将文件重命名为fq.txt,并上传到服务器。</li>
+<li><strong>Language pack extension for Chinese (Simplified)(可选)</strong></li>
+<li><strong>R Extension for Visual Studio Code</strong></li>
+<li><strong>R Debugger for VS Code</strong></li>
 </ul>
-<section id="ena下载链接改名" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="ena下载链接改名"><span class="header-section-number">2.1.1</span> ENA下载链接改名</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sed <span class="op">-</span>i <span class="st">'s/wget -nc ftp:\/\/ftp.sra.ebi.ac.uk/fasp.sra.ebi.ac.uk:/g'</span> fq.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="fig/R_extension.png" class="img-fluid"></p>
 </section>
-<section id="运行代码为-nohup-ascp.sh-ascp.log-21" class="level3" data-number="2.1.2">
-<h3 data-number="2.1.2" class="anchored" data-anchor-id="运行代码为-nohup-ascp.sh-ascp.log-21"><span class="header-section-number">2.1.2</span> 运行代码为 nohup ascp.sh &gt;ascp.log 2&gt;&amp;1 &amp;</h3>
-<blockquote class="blockquote">
-<p>下载下来的压缩包一般为*.fastq.gz</p>
-</blockquote>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/bin/bash</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#ascp.sh 内容如下</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#批量下载</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>cat fq.txt <span class="op">|</span><span class="cf">while</span> read <span class="bu">id</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>do </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ascp <span class="op">-</span>QT <span class="op">-</span>l <span class="dv">300</span><span class="er">m</span> <span class="op">-</span>P33001 <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>i <span class="op">~/</span>.conda<span class="op">/</span>envs<span class="op">/</span>download<span class="op">/</span>etc<span class="op">/</span>asperaweb_id_dsa.openssh era<span class="op">-</span>fasp<span class="op">@</span>$id .</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>done</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#单独下载</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ascp <span class="op">-</span>QT <span class="op">-</span>l <span class="dv">300</span><span class="er">m</span> <span class="op">-</span>P33001 <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>i <span class="op">~/</span>.conda<span class="op">/</span>envs<span class="op">/</span>download<span class="op">/</span>etc<span class="op">/</span>asperaweb_id_dsa.openssh era<span class="op">-</span>fasp<span class="op">@</span>将①改名后的内容选择一个复制进来 .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="将文件转移到raw_data" class="level3" data-number="2.1.3">
-<h3 data-number="2.1.3" class="anchored" data-anchor-id="将文件转移到raw_data"><span class="header-section-number">2.1.3</span> 将文件转移到raw_data</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mkdir raw_data</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>mv <span class="op">*</span>.fastq.gz raw_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="prefetch" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="prefetch"><span class="header-section-number">2.2</span> prefetch</h2>
+<section id="安装-languageserver和httpdg" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="安装-languageserver和httpdg"><span class="header-section-number">6.3.2</span> 安装 languageserver和httpdg</h3>
 <ul>
-<li>进入<strong>NCBI</strong>,在<strong>DataSets</strong>栏下搜索文献测序数据，如bulk码为GSE95424;单细胞码为PRJNA906632</li>
-<li>点击SRA Run Selector进入网页，再点击select选项下的Accession List下载</li>
-<li>获得SRR_Acc_List.txt文件，并上传到服务器 注：打开此文件光标要位于空白行的首位。</li>
+<li>在Rstudio，R Gui，VScode安装都可以。</li>
 </ul>
-<section id="下载srr文件" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="下载srr文件"><span class="header-section-number">2.2.1</span> 下载SRR文件</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="op">-</span>p raw_data</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#批量下载</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>nohup prefetch <span class="op">-</span>O .<span class="op">/</span>raw_data <span class="op">--</span>option<span class="op">-</span><span class="bu">file</span> SRR_Acc_List.txt <span class="op">&gt;</span>prefetch.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#单独下载一个</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>prefetch SRRXXXXXXXX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"languageserver"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"httpgd"</span>)<span class="co">#图形输出包</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来"><span class="header-section-number">2.2.2</span> 把当前文件夹的下一级子文件夹中的sra文件移动到当前文件夹来</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>find . <span class="op">-</span>mindepth <span class="dv">2</span> <span class="op">-</span>maxdepth <span class="dv">2</span> <span class="op">-</span><span class="bu">type</span> f <span class="op">-</span>name <span class="st">"*.sra"</span> <span class="op">-</span><span class="bu">exec</span> mv {} . \<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="安装radian暂时有bug可不安" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="安装radian暂时有bug可不安"><span class="header-section-number">6.3.3</span> 安装Radian(暂时有bug可不安)</h3>
+<ol type="1">
+<li>确保有conda环境和python，安装Anaconda3，官网下载<a href="https://www.anaconda.com/download/">Anaconda3下载</a>,记得添加环境变量。</li>
+</ol>
+<ul>
+<li>win+R,输入cmd，回车</li>
+</ul>
+<ol type="1">
+<li>查看conda是否存在？以及软件有哪些？</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>conda <span class="bu">list</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="fig/conda-1.png" class="img-fluid"></p>
+<ol start="2" type="1">
+<li>安装radian</li>
+</ol>
+<pre><code>pip install radian</code></pre>
+<p><img src="fig/radian.png" class="img-fluid"></p>
 </section>
-<section id="将sra文件转化为fastq文件完成后删除.sra文件" class="level3" data-number="2.2.3">
-<h3 data-number="2.2.3" class="anchored" data-anchor-id="将sra文件转化为fastq文件完成后删除.sra文件"><span class="header-section-number">2.2.3</span> 将SRA文件转化为fastq文件,完成后删除*.sra文件</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-S是--split-files，#-e 10开十线程，#*.sra所有sra文件 --include-technical为单细胞才加</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>nohup fasterq<span class="op">-</span>dump <span class="op">-</span>S <span class="op">-</span>e <span class="dv">10</span> <span class="op">*</span>.sra <span class="op">&gt;</span>faster1.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#转化单独一个文件</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>fasterq<span class="op">-</span>dump <span class="op">-</span>S <span class="op">-</span>e <span class="dv">10</span> SRRXXXXXXX.sra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="配置radian暂时不用radian用r" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="配置radian暂时不用radian用r"><span class="header-section-number">6.3.4</span> 配置radian(暂时不用radian用R)</h3>
+<blockquote class="blockquote">
+<p>where radian 确定路径</p>
+</blockquote>
+<p>VScode打开设置，搜索r.rterm.windows，把路径粘贴上。<br>
+</p>
+<p><strong>因为radian有bug</strong>，在帖子上看到也可以<strong>直接填R的路径</strong>不使用radian。</p>
+<pre><code>D:\R-4.4.1\bin\x64\R.exe</code></pre>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+注意
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>是x64下面的R.exe不是bin下面的R.exe</strong></p>
+</div>
+</div>
 </section>
-<section id="将fastq文件压缩为fq.gz文件" class="level3" data-number="2.2.4">
-<h3 data-number="2.2.4" class="anchored" data-anchor-id="将fastq文件压缩为fq.gz文件"><span class="header-section-number">2.2.4</span> 将fastq文件压缩为fq.gz文件</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#-k 保留原文件，-d是解压</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nohup gzip  <span class="op">*</span>.fastq <span class="op">&gt;</span>gzip.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#压缩单独一个</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>gzip SRRXXXXXX.fastq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="其他配置" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="其他配置"><span class="header-section-number">6.3.5</span> 其他配置</h3>
+<ol type="1">
+<li>VScode打开设置，搜索r.rterm.options，删除–no-save,–no-restore，添加–no-site-file</li>
+</ol>
+<p><img src="fig/option.png" class="img-fluid"></p>
+<ol start="2" type="1">
+<li>搜索r.bracketed，勾选中bracketed paste</li>
+</ol>
+<p><img src="fig/rbrack.png" class="img-fluid"></p>
+<ol start="3" type="1">
+<li>搜索r.sessionWatcher，勾选</li>
+</ol>
+<p><img src="fig/watch.png" class="img-fluid"></p>
+<ol start="4" type="1">
+<li>搜索r.plot.use.httpdg，勾选</li>
+</ol>
+<p><img src="fig/httpdg.png" class="img-fluid"></p>
+<p>5.搜索r.lsp.diagnostics , 然后 disable 即可取消蓝色波浪线提示</p>
+<p><img src="fig/lsp.png" class="img-fluid"></p>
 
 
 </section>
@@ -744,13 +760,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./intro.html" class="pagination-link" aria-label="Introduction">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      <a href="./dnbc4tools.html" class="pagination-link" aria-label="Single cell upstream analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Single cell upstream analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rna-analysis.html" class="pagination-link" aria-label="转录组上游分析">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">转录组上游分析</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./Quarto_operation.html" class="pagination-link" aria-label="Quarto_operation">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quarto_operation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hss’s Notebook",
+    "title": "Bioinfo Notebook",
     "section": "",
-    "text": "转录组测序分析\n这是hss总结的转录组分析笔记\n文献查找请登录 pubmed\nQuarto操作查询请登录Quarto操作指南\nMarkdown语法Markdown Basics\n李申锁笔记R&python&linux\n杜俊宏笔记R语言和单细胞\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n以下是示例代码\n\n1 + 1\n\n[1] 2",
+    "text": "转录组测序分析\n这是hss总结的转录组分析笔记\n文献查找请登录 pubmed\nQuarto操作查询请登录Quarto操作指南\nMarkdown语法Markdown Basics\n李申锁笔记R&python&linux\n杜俊宏笔记R语言和单细胞\nTo learn more about Quarto books visit https://quarto.org/docs/books.",
     "crumbs": [
       "转录组测序分析"
     ]
@@ -14,7 +14,7 @@
     "href": "intro.html",
     "title": "1  Introduction",
     "section": "",
-    "text": "This book is a study note on Linux and R code created by Huang Shasha.\n\nlibrary(pacman)\np_load(ggplot2)",
+    "text": "This book is a study note on Linux and R code created by hss.\n\nlibrary(pacman)\np_load(ggplot2)",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -200,53 +200,33 @@
     ]
   },
   {
-    "objectID": "Oxidized_Phospholipidomics.html",
-    "href": "Oxidized_Phospholipidomics.html",
-    "title": "6  Oxidized Phospholipidomics",
+    "objectID": "vscode-R.html",
+    "href": "vscode-R.html",
+    "title": "6  VScode-R",
     "section": "",
-    "text": "6.1 提取",
+    "text": "6.1 安装R\n官网R语言下载",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Oxidized Phospholipidomics</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>VScode-R</span>"
     ]
   },
   {
-    "objectID": "Oxidized_Phospholipidomics.html#提取",
-    "href": "Oxidized_Phospholipidomics.html#提取",
-    "title": "6  Oxidized Phospholipidomics",
-    "section": "",
-    "text": "6.1.1 血浆或血清\n\n100μL血浆/血清+300μL H2O+960μL MTBE/MeOH（5:1；v/v）（15:0 PE母液浓度为20微摩。若复溶体积为100微，则加入5微15:0 PE，若复溶体积为200微，则加入10微15:0 PE） \n涡旋60 s，超声处理10分钟（4°C水浴），在4°C 3000 rpm离心15分钟，然后取上清液（500μL）。在剩余溶液中加入500μL MTBE进行再萃取\n\n第二步共重复3次，合并上清液（1.5mL），然后用真空浓缩器在4°C下蒸发至干\n\n重组：100μL MeOH复溶\n\n\n\n\n\n\n\nNote\n\n\n\n复溶的量根据自己实验需求决定\n\n\n\n\n6.1.2 培养的细胞\n\n将细胞（5*106个细胞/样品）与400μL水混合，然后涡旋30秒，在液氮中孵育1分钟。在室温下解冻并超声处理10分钟。重复冻融循环三次\n\n在13000rpm和4°C下离心15分钟，然后取10μL上清液，使用BCA试剂盒测量蛋白质浓度\n\n向样品中加入960μL MTBE/MeOH（5:1；v/v）\n\n涡旋60 s，超声处理10分钟（4°C水浴），在3000 rpm和4°C下离心15分钟，然后取上清液（500μL）。在剩余溶液中加入500μL甲基叔丁基醚\n\n重复第四步3次，合并上清液，然后用真空浓缩器在4°C下蒸发至干\n\n重组：100μL MeOH\n\n\n\n6.1.3 动物组织样本\n\n将组织称重并在H2O（200μL H2O，约10mg组织）中匀浆三个循环（每个循环：5500rpm，20s，重复三次）\n\n在13000rpm和4°C下离心15分钟；取10μL上清液，用H2O稀释10-20倍，用BCA试剂盒测定蛋白质浓度\n\n200μL均质组织溶液+200μL H2O+960μL MTBE/MeOH（5:1；v/v）\n\n涡旋60 s，超声处理10分钟（4°C水浴），在3000 rpm和4°C下离心15分钟，然后取上清液（500μL）。在剩余溶液中加入500μL甲基叔丁基醚\n\n第四步共重复3次，合并上清液（1.5mL），然后用真空浓缩器在4°C下蒸发至干\n\n重组：100μL MeOH",
+    "objectID": "vscode-R.html#安装vscode",
+    "href": "vscode-R.html#安装vscode",
+    "title": "6  VScode-R",
+    "section": "6.2 安装VScode",
+    "text": "6.2 安装VScode\n官网VScode下载",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Oxidized Phospholipidomics</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>VScode-R</span>"
     ]
   },
   {
-    "objectID": "Oxidized_Phospholipidomics.html#定磷",
-    "href": "Oxidized_Phospholipidomics.html#定磷",
-    "title": "6  Oxidized Phospholipidomics",
-    "section": "6.2 定磷",
-    "text": "6.2 定磷\n将复溶的样品4℃下14000rpm离心30min并转移至另一EP管中，取10μL定磷。\n\n\n\n\n\n\nNote\n\n\n\n注意选择合适离心管,离心使用1.5mL离心管，2mL离心管可能会导致样品有沉淀。\n\n\n\n6.2.1 试剂：819负20度冰箱\n1. 1mM NaH2PO4（Sigma Aldrich#s8282）FW:119.98\n\n\n配制：11.99mg/100mLddH2O\n\n\n2. 70%HClO4（Sigma Aldrich#380083）\n\n\n因高氯酸具有极强的腐蚀性，故量取高氯酸时，需十分小心。\n\n\n3. 5%Na2MoO4·2H2O（Sigma Aldrich#M1003）\n\n\n配制：2.5g/100mLddH2O，可将溶液分装，置于-20℃保存。\n\n\n4. 10%抗坏血酸（Sigma Aldrich#A5960）\n\n\n1g/10mLddH2O（足够80个样品使用），现用现配，避光。\n\n\n\n\n\n\n\n警告\n\n\n\n用完试剂请放回！！！\n\n\n\n\n6.2.2 原理\n在酸性环境下，定磷试剂中的钼酸钠以钼酸形式与样品中的磷酸反应生成磷钼酸，当还原剂存在时，磷钼酸会立即转变成蓝色的还原产物—钼蓝，钼蓝最大的光吸收在650-660nm波长处。当使用抗坏血酸还原剂时，测定的最适范围为1-10微克无机磷。（测定样品总磷量时需先使用硫酸或高氯酸将其消化为无机磷再进行测定）\n\n\n6.2.3 步骤\n\n将10μL的样品置于玻璃管中，加入125μL的70%HClO4溶液，放置于170℃油浴中加热20-40min（依据脂质浓度调整加热时间），加热结束时，样品澄清。\n在加热样品的过程中，按照下表制备标准曲线 Table 6.1，各个组分需涡旋充分混匀。\n\n\n\n\n\nTable 6.1: 定磷配置表\n\n\n\n\n\n\n\n\n\n\n\n\n\n标准曲线\n70% HClO4\ndd H2O\n2.5% Na2Mo4·2H2O\n10% 抗坏血酸\n1mM NaH2PO4 (add last)\n\n\n\n\n0\n125μL\n825μL\n125μL\n125μL\n0μL\n\n\n4.16μM\n125μL\n820μL\n125μL\n125μL\n5μL\n\n\n12.5μM\n125μL\n810μL\n125μL\n125μL\n15μL\n\n\n20.8μM\n125μL\n800μL\n125μL\n125μL\n25μL\n\n\n29.2μM\n125μL\n790μL\n125μL\n125μL\n35μL\n\n\n37.5μM\n125μL\n780μL\n125μL\n125μL\n45μL\n\n\n54.2μM\n125μL\n760μL\n125μL\n125μL\n65μL\n\n\n\n\n\n\n\n将样品取出冷却至室温后，加入825μLddH2O、125μLNa2MoO4·2H2O，最后加入125μL10%抗坏血酸，充分混匀。\n将样品和标准品同时放入沸水浴中加热10min后取出放置于冰上，转移200μL至96孔板中，使用酶标仪检测660nm波长处的吸光度值，将所测的吸光度值代入标准曲线求得含磷浓度，进而计算磷量。",
+    "objectID": "vscode-R.html#配置扩展程序",
+    "href": "vscode-R.html#配置扩展程序",
+    "title": "6  VScode-R",
+    "section": "6.3 配置扩展程序",
+    "text": "6.3 配置扩展程序\n\n6.3.1 安装R插件\n\nLanguage pack extension for Chinese (Simplified)(可选)\nR Extension for Visual Studio Code\nR Debugger for VS Code\n\n\n\n\n6.3.2 安装 languageserver和httpdg\n\n在Rstudio，R Gui，VScode安装都可以。\n\n\ninstall.packages(\"languageserver\")\ninstall.packages(\"httpgd\")#图形输出包\n\n\n\n6.3.3 安装Radian(暂时有bug可不安)\n\n确保有conda环境和python，安装Anaconda3，官网下载Anaconda3下载,记得添加环境变量。\n\n\nwin+R,输入cmd，回车\n\n\n查看conda是否存在？以及软件有哪些？\n\n\nconda list\n\n\n\n安装radian\n\npip install radian\n\n\n\n6.3.4 配置radian(暂时不用radian用R)\n\nwhere radian 确定路径\n\nVScode打开设置，搜索r.rterm.windows，把路径粘贴上。\n\n因为radian有bug，在帖子上看到也可以直接填R的路径不使用radian。\nD:\\R-4.4.1\\bin\\x64\\R.exe\n\n\n\n\n\n\n注意\n\n\n\n是x64下面的R.exe不是bin下面的R.exe\n\n\n\n\n6.3.5 其他配置\n\nVScode打开设置，搜索r.rterm.options，删除–no-save,–no-restore，添加–no-site-file\n\n\n\n搜索r.bracketed，勾选中bracketed paste\n\n\n\n搜索r.sessionWatcher，勾选\n\n\n\n搜索r.plot.use.httpdg，勾选\n\n\n5.搜索r.lsp.diagnostics , 然后 disable 即可取消蓝色波浪线提示",
     "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Oxidized Phospholipidomics</span>"
-    ]
-  },
-  {
-    "objectID": "Oxidized_Phospholipidomics.html#制样",
-    "href": "Oxidized_Phospholipidomics.html#制样",
-    "title": "6  Oxidized Phospholipidomics",
-    "section": "6.3 制样",
-    "text": "6.3 制样\n\n固定磷量上样: 取20nmol Pi样本放置于液相小瓶中，加入甲醇补足体积至40μL，加入2μL氘代PE内标。（16:0-d31-18:1 PE：母液浓度为20μM）。\n固定体积上样: 直接取40μL样品上样，加入2μL氘代PE内标。\n\n\n\n\n\n\n\n友情提示\n\n\n\n是否需要制作QC样品？个人建议：制作QC！！！",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Oxidized Phospholipidomics</span>"
-    ]
-  },
-  {
-    "objectID": "Oxidized_Phospholipidomics.html#氧化磷脂组学液质条件",
-    "href": "Oxidized_Phospholipidomics.html#氧化磷脂组学液质条件",
-    "title": "6  Oxidized Phospholipidomics",
-    "section": "6.4 氧化磷脂组学液质条件",
-    "text": "6.4 氧化磷脂组学液质条件\n\n检测摸式：负离子\n质量范围：114-1700 Da\n液相分析条件\n\n\n色谱柱：Waters Premier ACQUITY BEH HILIC (100×2.1 mm, 1.7 μm)\n柱温：40 ℃\n流动相：\n\nA相:乙腈:水(95:5)+10 mM甲酸铵\nB相:乙腈:水(50:50)+10 mM甲酸铵\n\n洗脱程序：Table 6.2\n\n\n\n\nTable 6.2: 洗脱程序\n\n\n\n\n\nTime\nFlow[ml/min]\nB%\nC%\nCurve\n\n\n\n\n0.000\n0.25\n0.0\n0.0\n5\n\n\n10.000\n0.25\n35.0\n0.0\n5\n\n\n10.100\n0.25\n100.0\n0.0\n5\n\n\n13.000\n0.25\n100.0\n0.0\n5\n\n\n13.100\n0.25\n0.0\n0.0\n5\n\n\n22.000\n0.25\n0.0\n0.0\n5\n\n\n\n\n\n\n\n进样量：2 uL(按具体情况调整)\n\n\n质谱分析条件\n\n\n源气参数：\n\n离子源：电喷雾离子化源（ESI）\nSpray Voltage：负离子, -2.8 kV\nS-lens RF level：65\nCapillary temperature：350 ℃\nAux gas heater temp：320 ℃\n鞘气：30 arb\n辅助气：15 arb\n反吹气：0 arb\n\n质谱采集参数：请考虑是否需要采集二级。\n\nFull MS: Resolution: 70000\nAGC: 3e6\nMIT: 100 ms\nFull MS/dd-MS2: Resolution: 17500\nAGC: 1e5\nMIT: 50 ms\nTop N:5; Isolation window:1.0m/z\n(N)CE:20, 30, 40\ndd Settings: Minimum AGC: 8.00e3\nIntensity thresh: 1.6e5\nDynamic exclus: 10.0s",
-    "crumbs": [
-      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Oxidized Phospholipidomics</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>VScode-R</span>"
     ]
   },
   {
